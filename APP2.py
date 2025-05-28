@@ -1,13 +1,10 @@
 import streamlit as st
 
-def fibrinogeen_dosis(targeted_delta_A5: float):
-    dosis_per_A5 = {2: 12.5, 4: 25.0, 6: 37.5, 8: 50.0, 10: 62.5, 12: 75.0}
-    beschikbare_doses = sorted(dosis_per_A5.items())
-    for a5, dosis in beschikbare_doses:
-        if targeted_delta_A5 <= a5:
-            return a5, dosis
-    return beschikbare_doses[-1]
-
+def fibrinogeen_dosis_lineair(targeted_delta_A5: float):
+    # 6.25 komt uit je tabel: elke 2 stijgt de dosis met 12.5, dus 12.5/2 = 6.25 per A5
+    dosis = targeted_delta_A5 * 6.25
+    return dosis
+    
 def stap_2_na_ROTEM_geleide_stollingscorrectie(EXTEM_CT, FIBTEM_A5, EXTEM_A5, weight_kg):
     cofact_dosis = 0.0
     op_min = 0.0
@@ -40,9 +37,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(EXTEM_CT, FIBTEM_A5, EXTEM_A5, we
     if FIBTEM_A5 < 9 and EXTEM_A5 < 35:
         targeted_delta_A5 = 12 - FIBTEM_A5
         if targeted_delta_A5 > 0:
-            gekozen_a5, fibrinogeen_mg_per_kg = fibrinogeen_dosis(targeted_delta_A5)
+            fibrinogeen_mg_per_kg = fibrinogeen_dosis_lineair(targeted_delta_A5)
             fibrinogeen_g = round((fibrinogeen_mg_per_kg * weight_kg) / 1000, 2)
-            fibrinogeen_conc_ml_per_kg = fibrinogeen_ml_per_kg_dict[gekozen_a5]
+            fibrinogeen_conc_ml_per_kg = targeted_delta_A5 * (3.8 / 12)
             fibrinogeen_conc_ml_totaal = round(fibrinogeen_conc_ml_per_kg * weight_kg, 1)
         else:
             fibrinogeen_g = 0.0
