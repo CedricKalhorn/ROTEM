@@ -57,27 +57,43 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(EXTEM_CT, FIBTEM_A5, EXTEM_A5, we
         "fibrinogeen_conc_ml_totaal": fibrinogeen_conc_ml_totaal
     }
 
+def float_from_input(input_str):
+    # Vervang komma door punt, strip spaties
+    try:
+        return float(input_str.replace(',', '.').strip())
+    except ValueError:
+        return None
+
 st.title("ROTEM Advies Tool")
 st.write("Geef patiëntwaarden op en genereer direct een behandeladvies.")
-st.write("Voeg hier disclaimers toe")
 
-# Inputvelden
-weight_kg = st.number_input("Gewicht (kg)", min_value=1, max_value=300, value=70)
-extem_ct = st.number_input("EXTEM CT (seconde)", min_value=0, max_value=1000, value=100)
-fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=50, value=5)
-extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=20)
+# Gebruik text_input i.p.v. number_input voor komma-ondersteuning
+weight_kg_str = st.text_input("Gewicht (kg)", "70")
+extem_ct_str = st.text_input("EXTEM CT (seconde)", "100")
+fibtem_a5_str = st.text_input("FIBTEM A5 (mm)", "5")
+extem_a5_str = st.text_input("EXTEM A5 (mm)", "20")
 
+# Probeer om te zetten naar float
+weight_kg = float_from_input(weight_kg_str)
+extem_ct = float_from_input(extem_ct_str)
+fibtem_a5 = float_from_input(fibtem_a5_str)
+extem_a5 = float_from_input(extem_a5_str)
+
+# Toon een melding als iets niet goed ingevuld is
 if st.button("Genereer advies"):
-    advies = stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg)
-    st.subheader("Advies & Doseringen")
-    st.code(
-        f"Cofact-dosis: {advies['cofact_dosis']} ml\n"
-        f"OP minimaal: {advies['op_min']} ml\n"
-        f"OP maximaal: {advies['op_max']} ml\n"
-        f"TC aantal: {advies['tc_aantal']}\n"
-        f"Fibrinogeen (g): {advies['fibrinogeen_g']}\n"
-        f"Targeted delta A5: {advies['targeted_delta_A5']}\n"
-        f"Fibrinogeen conc. (ml/kg): {advies['fibrinogeen_conc_ml_per_kg']}\n"
-        f"Fibrinogeen conc. totaal (ml): {advies['fibrinogeen_conc_ml_totaal']}"
-    )
-    st.caption("Powered by ROTEM • Clinical Technology • TU Delft")
+    if None in [weight_kg, extem_ct, fibtem_a5, extem_a5]:
+        st.error("Vul alle velden correct in (gebruik cijfers, evt. met komma of punt).")
+    else:
+        advies = stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg)
+        st.subheader("Advies & Doseringen")
+        st.code(
+            f"Cofact-dosis: {advies['cofact_dosis']} ml\n"
+            f"OP minimaal: {advies['op_min']} ml\n"
+            f"OP maximaal: {advies['op_max']} ml\n"
+            f"TC aantal: {advies['tc_aantal']}\n"
+            f"Fibrinogeen (g): {advies['fibrinogeen_g']}\n"
+            f"Targeted delta A5: {advies['targeted_delta_A5']}\n"
+            f"Fibrinogeen conc. (ml/kg): {advies['fibrinogeen_conc_ml_per_kg']}\n"
+            f"Fibrinogeen conc. totaal (ml): {advies['fibrinogeen_conc_ml_totaal']}"
+        )
+        st.caption("Powered by ROTEM • Clinical Technology • TU Delft")
