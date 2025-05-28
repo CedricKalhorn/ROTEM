@@ -62,6 +62,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(EXTEM_CT, FIBTEM_A5, EXTEM_A5, we
 
 st.title("ROTEM Advies Tool")
 st.write("Geef patiëntwaarden op en genereer direct een behandeladvies.")
+st.write("Voeg hier disclaimers toe")
 
 # Inputvelden
 weight_kg = st.number_input("Gewicht (kg)", min_value=1, max_value=300, value=70)
