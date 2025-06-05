@@ -64,10 +64,10 @@ st.title("ROTEM Advies Tool")
 st.write("Geef patiëntwaarden op en genereer direct een behandeladvies.")
 
 # Inputvelden
-weight_kg = st.number_input("Gewicht (kg)", min_value=1, max_value=300, value=70)
-extem_ct = st.number_input("EXTEM CT (seconde)", min_value=0, max_value=1000, value=100)
-fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=50, value=5)
-extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=20)
+weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
+extem_ct = st.number_input("EXTEM CT (seconde)", min_value=0, max_value=1000, value=0)
+fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=50, value=0)
+extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
 if st.button("Genereer advies"):
     advies = stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg)
