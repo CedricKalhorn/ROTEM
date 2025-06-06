@@ -131,7 +131,7 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # =======================
 if not st.session_state.show_advies:
     
-    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven, ")
+    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven")
     
     product_keuze = st.radio(
         "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
