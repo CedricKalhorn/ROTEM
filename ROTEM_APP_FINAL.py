@@ -218,4 +218,4 @@ else:
 # =======================
 st.markdown("---")
 st.markdown("<p style='text-align: center; font-size: 0.85em;'>Gemaakt door studenten Klinische Technologie: Cedric Kalhorn, Fleur de Groot, Anne de Zeeuw & Roos Ritsma</p>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 0.85em;'>Contactgegevens: c.a.f.kalhorn@student.tudelft.nl, f.m.j.degroot@student.tudelft.nl, m.a.dezeeuw@student.tudelft.nl,r.p.ritsma@student.tudelft.nl </p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 0.85em;'>Contactgegevens: c.a.f.kalhorn@student.tudelft.nl, f.m.j.degroot@student.tudelft.nl, m.a.dezeeuw@student.tudelft.nl, r.p.ritsma@student.tudelft.nl </p>", unsafe_allow_html=True)
