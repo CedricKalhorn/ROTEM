@@ -87,6 +87,9 @@ label {
 # ROTEM Functie
 # =======================
 def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze):
+    if any(v is None for v in [extem_ct, fibtem_a5, extem_a5]):
+        return {}
+
     gewicht = weight_kg
     omniplasma = 0
     trombocyten = 0
@@ -111,16 +114,12 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     advies = {}
 
-    # Altijd gekozen stollingsproduct tonen
     if keuze == "Cofact":
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen nodig"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma} ml" if omniplasma > 0 else "Geen nodig"
 
-    # Altijd trombocyten tonen
     advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Geen nodig"
-
-    # Altijd fibrinogeen tonen
     advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen nodig"
 
     return advies
