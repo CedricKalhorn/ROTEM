@@ -130,8 +130,15 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # PAGINA 1 – Invoer
 # =======================
 if not st.session_state.show_advies:
-    st.markdown("Geef hieronder de ROTEM-waarden in. Invoer is optioneel – defaults worden gebruikt bij lege velden.")
+    
+    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven, ")
+    
+    product_keuze = st.radio(
+        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
+        ["Omniplasma", "Cofact"],
+        horizontal=True
 
+    )
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
@@ -139,12 +146,6 @@ if not st.session_state.show_advies:
     with col2:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
-
-    product_keuze = st.radio(
-        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
-        ["Omniplasma", "Cofact"],
-        horizontal=True
-    )
 
     with st.expander("ℹ️ Wat is het verschil tussen Cofact en Omniplasma?"):
         st.markdown("""
