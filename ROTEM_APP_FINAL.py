@@ -47,8 +47,8 @@ textarea {
 }
 /* RADIOBUTTONS AANGEPAST NAAR HMC STIJL */
 [data-testid="stRadio"] > div > label > div:first-child {
-    background-color: #002B45 !important;
-    border: 2px solid #002B45 !important;
+    background-color: #00B5E2 !important;
+    border: 2px solid #00B5E2 !important;
 }
 [data-testid="stRadio"] > div > label[data-selected="true"] > div:first-child {
     background-color: #00B5E2 !important;
