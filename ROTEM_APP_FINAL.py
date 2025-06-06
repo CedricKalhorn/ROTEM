@@ -1,28 +1,38 @@
 import streamlit as st
 
 # =======================
+# STATE INIT
+# =======================
+if "show_advies" not in st.session_state:
+    st.session_state.show_advies = False
+if "advies_resultaat" not in st.session_state:
+    st.session_state.advies_resultaat = {}
+if "trigger_advies" not in st.session_state:
+    st.session_state.trigger_advies = False
+
+# =======================
+# TRIGGER AANPASSEN
+# =======================
+if st.session_state.trigger_advies:
+    st.session_state.show_advies = True
+    st.session_state.trigger_advies = False
+
+# =======================
 # Styling
 # =======================
 st.set_page_config(page_title="ROTEM Advies Tool", layout="wide")
 st.markdown("""
 <style>
-/* VOLLEDIGE PAGINAACHTERGROND */
 body, .main, [data-testid="stAppViewContainer"] {
     background-color: #ffffff !important;
     color: #002B45 !important;
 }
-
-/* ALGEMENE TEKSTKLEUR */
 html, body, [data-testid="stMarkdownContainer"] {
     color: #002B45 !important;
 }
-
-/* KOPPEN */
 h1, h2, h3, h4, h5, h6 {
     color: #002B45 !important;
 }
-
-/* INVOERVELDEN */
 input[type="number"],
 input[type="text"],
 textarea {
@@ -32,23 +42,17 @@ textarea {
     border: 1px solid #002B45;
     padding: 10px;
 }
-
-/* LABELS BOVEN VELDEN */
 label {
     color: #002B45 !important;
     font-weight: bold;
 }
-
-/* BUTTONS */
 .stButton > button {
-    background-color: #e6f4f9;
+    background-color: #004494;
     color: white;
     font-weight: bold;
     border-radius: 8px;
     height: 3em;
 }
-
-/* ADVIESBLOKKEN */
 .advies-box {
     background-color: #e6f4f9;
     border-left: 6px solid #00B5E2;
@@ -59,8 +63,6 @@ label {
     color: #002B45;
     font-weight: 600;
 }
-
-/* INFO/DISCLAIMER BLOCKS */
 [data-testid="stAlert"] {
     background-color: #e6f4f9 !important;
     color: #002B45 !important;
@@ -69,7 +71,6 @@ label {
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # =======================
 # ROTEM Functie
@@ -98,31 +99,18 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
 
     advies = {}
-
-    # Altijd gekozen stollingsproduct tonen
     if keuze == "Cofact":
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen nodig"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma} ml" if omniplasma > 0 else "Geen nodig"
 
-    # Altijd trombocyten tonen
     advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Geen nodig"
-
-    # Altijd fibrinogeen tonen
     advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen nodig"
 
     return advies
 
 # =======================
-# State management
-# =======================
-if "show_advies" not in st.session_state:
-    st.session_state.show_advies = False
-if "advies_resultaat" not in st.session_state:
-    st.session_state.advies_resultaat = {}
-
-# =======================
-# HEADER met HMC-logo
+# HEADER
 # =======================
 col_left, col_right = st.columns([6, 1])
 with col_left:
@@ -138,15 +126,8 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # PAGINA 1 – Invoer
 # =======================
 if not st.session_state.show_advies:
-    
-    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven")
-    
-    product_keuze = st.radio(
-        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
-        ["Omniplasma", "Cofact"],
-        horizontal=True
+    st.markdown("Geef hieronder de ROTEM-waarden in. Invoer is optioneel – defaults worden gebruikt bij lege velden.")
 
-    )
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
@@ -154,6 +135,12 @@ if not st.session_state.show_advies:
     with col2:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
+
+    product_keuze = st.radio(
+        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
+        ["Omniplasma", "Cofact"],
+        horizontal=True
+    )
 
     with st.expander("ℹ️ Wat is het verschil tussen Cofact en Omniplasma?"):
         st.markdown("""
@@ -166,7 +153,7 @@ if not st.session_state.show_advies:
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
         )
-        st.session_state.show_advies = True
+        st.session_state.trigger_advies = True
 
 # =======================
 # PAGINA 2 – Advies
