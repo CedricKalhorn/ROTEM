@@ -96,8 +96,6 @@ if "advies_resultaat" not in st.session_state:
 col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM Advies Tool")
-with col_right:
-    st.image("hmc_logo.png", width=80)
 
 # =======================
 # Disclaimer
