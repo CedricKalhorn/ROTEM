@@ -139,14 +139,14 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # =======================
 if not st.session_state.show_advies:
     
+    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven")
+    
     product_keuze = st.radio(
-        "Kies hieronder uw bloed product die u wilt toedienen. "
+        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
         ["Omniplasma", "Cofact"],
         horizontal=True
 
     )
-
-    st.markdown("Geef hieronder de ROTEM-waarden in.")
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
@@ -154,6 +154,13 @@ if not st.session_state.show_advies:
     with col2:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
+
+    with st.expander("ℹ️ Wat is het verschil tussen Cofact en Omniplasma?"):
+        st.markdown("""
+        - **Cofact** werkt sneller en heeft een kleiner volume.
+        - **Omniplasma** is breder inzetbaar maar volumineuzer.
+        - Volgens protocol mag de arts kiezen bij EXTEM CT > 80.
+        """)
 
     if st.button("Genereer advies"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
