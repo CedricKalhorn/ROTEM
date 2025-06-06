@@ -139,10 +139,10 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # =======================
 if not st.session_state.show_advies:
     
-    st.markdown("Geef hieronder de ROTEM-waarden in.")
+    st.markdown("Geef hieronder de ROTEM-waarden en gewicht van de patiënt.")
     
     product_keuze = st.radio(
-        "Geef hieronder welk bloedproduct uw voorkeur heeft",
+        "Geef hieronder welk bloedproduct uw voorkeur heeft:",
         ["Omniplasma", "Cofact"],
         horizontal=True
 
