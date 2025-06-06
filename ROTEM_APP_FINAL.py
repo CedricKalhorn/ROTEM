@@ -174,12 +174,12 @@ if not st.session_state.show_advies:
 
     col1, col2 = st.columns(2)
     with col1:
-        weight_kg = st.number_input("Gewicht (kg)", min_value=1, max_value=300, value=None)
+        weight_kg = st.number_input("Gewicht (kg)", min_value=1, max_value=3000, value=None)
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
 
     with col2:
-        fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=50, value=None)
-        extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=None)
+        fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
+        extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
 
     product_keuze = st.radio(
         "Geef hieronder welk bloedproduct uw voorkeur heeft:",
