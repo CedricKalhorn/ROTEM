@@ -167,25 +167,26 @@ if not st.session_state.show_advies:
         horizontal=True
     )
 
-    # Validatie waarschuwingen
-    if weight_kg == 0:
-        st.warning("⚠️ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
-    if extem_ct == 0:
-        st.info("ℹ️ Waarschuwing: u heeft EXTEM CT niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
-    if fibtem_a5 == 0:
-        st.info("ℹ️ Waarschuwing: u heeft FIBTEM A5 niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
-    if extem_a5 == 0:
-        st.info("ℹ️ Waarschuwing: u heeft EXTEM A5 niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
-
     st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
-        if weight_kg > 0:
+        if weight_kg == 0:
+            st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+        else:
+            waarschuwingen = []
+            if extem_ct == 0:
+                waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+            if fibtem_a5 == 0:
+                waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+            if extem_a5 == 0:
+                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+
+            if waarschuwingen:
+                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+
             st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
             st.session_state.show_advies = True
-        else:
-            st.error("❌ Kan geen advies genereren zonder ingevuld gewicht.")
 
 # =======================
 # PAGINA 2 – Advies
