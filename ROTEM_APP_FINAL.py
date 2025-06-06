@@ -73,7 +73,7 @@ col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM Advies Tool")
 with col_right:
-    st.image("38b9a13a-6e25-41f5-8a45-59eb064662a4.png", width=80)
+    st.image("hmc_logo.png", width=80)
 
 # =======================
 # Disclaimer
