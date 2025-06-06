@@ -58,7 +58,7 @@ body {
 # ROTEM Functie
 # =======================
 def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg):
-    gewicht = weight_kg if weight_kg else 70
+    gewicht = weight_kg
     omniplasma = 0
     trombocyten = 0
     fibrinogeen = 0
