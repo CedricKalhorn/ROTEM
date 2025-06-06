@@ -155,12 +155,6 @@ if not st.session_state.show_advies:
     
     st.markdown("Geef hieronder de ROTEM-waarden en gewicht van de patiënt.")
     
-    product_keuze = st.radio(
-        "Geef hieronder welk bloedproduct uw voorkeur heeft:",
-        ["Omniplasma", "Cofact"],
-        horizontal=True
-
-    )
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
@@ -176,6 +170,13 @@ if not st.session_state.show_advies:
         )
         st.session_state.show_advies = True
 
+    
+    product_keuze = st.radio(
+        "Geef hieronder welk bloedproduct uw voorkeur heeft:",
+        ["Omniplasma", "Cofact"],
+        horizontal=True
+
+    )
 # =======================
 # PAGINA 2 – Advies
 # =======================
