@@ -189,7 +189,7 @@ if not st.session_state.show_advies:
         horizontal=True
     )
 
-    st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
+    st.caption("Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
         if weight_kg == None:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
@@ -220,7 +220,7 @@ else:
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
 
-    st.caption("📌 Dubbel klik indien nodig om terug te gaan naar invoerscherm")
+    st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
 
