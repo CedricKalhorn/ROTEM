@@ -6,32 +6,49 @@ import streamlit as st
 st.set_page_config(page_title="ROTEM Advies Tool", layout="wide")
 st.markdown("""
 <style>
-/* Volledige body */
-body {
-    background-color: #f5faff;
-    color: #002B45;
+/* ALGEMENE TEKSTEN */
+html, body, [data-testid="stMarkdownContainer"] {
+    color: #002B45 !important;
 }
 
-/* Streamlit achtergrond container */
-[data-testid="stAppViewContainer"] {
-    background-color: #f5faff;
+/* TITELS */
+h1, h2, h3, h4, h5, h6 {
+    color: #002B45 !important;
 }
 
-/* Sidebar (indien gebruikt) */
-[data-testid="stSidebar"] {
-    background-color: #004494;
-    color: white;
-}
-
-/* Knoppen */
-.stButton > button {
-    background-color: #004494;
-    color: white;
+/* INPUTFIELDS */
+input[type="number"],
+input[type="text"] {
+    background-color: #004494 !important;
+    color: white !important;
     border-radius: 8px;
+    border: 1px solid #002B45;
+    padding: 10px;
+}
+
+/* LABELS BOVEN INPUT */
+label {
+    color: #002B45 !important;
     font-weight: bold;
 }
 
-/* Advies-boxen */
+/* BUTTONS */
+.stButton > button {
+    background-color: #004494;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* INFO / DISCLAIMER BLOKKEN */
+[data-testid="stAlert"] {
+    background-color: #e6f4f9 !important;
+    border-left: 6px solid #00B5E2;
+    color: #002B45 !important;
+    font-weight: 500;
+}
+
+/* ADVIESBOXEN */
 .advies-box {
     background-color: #e6f4f9;
     border-left: 6px solid #00B5E2;
@@ -41,14 +58,6 @@ body {
     font-size: 16px;
     color: #002B45;
     font-weight: 600;
-}
-
-/* Info en success blocks (zoals de disclaimer) */
-[data-testid="stAlert"] {
-    background-color: #dceafc !important;
-    color: #002B45 !important;
-    border: 1px solid #00B5E2;
-    border-radius: 8px;
 }
 </style>
 """, unsafe_allow_html=True)
