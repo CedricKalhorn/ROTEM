@@ -83,7 +83,6 @@ label {
 </style>
 """, unsafe_allow_html=True)
 
-
 # =======================
 # ROTEM Functie
 # =======================
@@ -147,14 +146,13 @@ col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM Advies Tool")
 
-
 # =======================
 # PAGINA 1 – Invoer
 # =======================
 if not st.session_state.show_advies:
-    
+
     st.markdown("Geef hieronder de ROTEM-waarden en gewicht van de patiënt.")
-    
+
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
@@ -163,21 +161,31 @@ if not st.session_state.show_advies:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
-        
     product_keuze = st.radio(
         "Geef hieronder welk bloedproduct uw voorkeur heeft:",
         ["Omniplasma", "Cofact"],
         horizontal=True
-
     )
-    
+
+    # Validatie waarschuwingen
+    if weight_kg == 0:
+        st.warning("⚠️ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+    if extem_ct == 0:
+        st.info("ℹ️ Waarschuwing: u heeft EXTEM CT niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+    if fibtem_a5 == 0:
+        st.info("ℹ️ Waarschuwing: u heeft FIBTEM A5 niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+    if extem_a5 == 0:
+        st.info("ℹ️ Waarschuwing: u heeft EXTEM A5 niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+
     st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
-        st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
-            extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
-        )
-        st.session_state.show_advies = True
-
+        if weight_kg > 0:
+            st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
+                extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
+            )
+            st.session_state.show_advies = True
+        else:
+            st.error("❌ Kan geen advies genereren zonder ingevuld gewicht.")
 
 # =======================
 # PAGINA 2 – Advies
@@ -188,7 +196,7 @@ else:
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
-        
+
     st.caption("📌 Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
