@@ -93,21 +93,24 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     fibrinogeen = 0
     cofact_dosis = 0.0
 
-    if extem_ct > 80 and fibtem_a5 > 9:
-        dosis = gewicht * 10
-        if keuze == "Cofact":
-            cofact_dosis = round(0.4 * gewicht, 1)
-        elif keuze == "Omniplasma":
-            omniplasma = ((dosis + 199) // 200) * 200
-
-    if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
-        trombocyten = 330
-        if omniplasma == 0 and keuze == "Omniplasma":
+    if extem_ct is not None and fibtem_a5 is not None:
+        if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 10
-            omniplasma = ((dosis + 199) // 200) * 200
+            if keuze == "Cofact":
+                cofact_dosis = round(0.4 * gewicht, 1)
+            elif keuze == "Omniplasma":
+                omniplasma = ((dosis + 199) // 200) * 200
 
-    if fibtem_a5 < 9 and extem_a5 < 35:
-        fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
+    if extem_a5 is not None and fibtem_a5 is not None:
+        if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
+            trombocyten = 330
+            if omniplasma == 0 and keuze == "Omniplasma":
+                dosis = gewicht * 10
+                omniplasma = ((dosis + 199) // 200) * 200
+
+    if fibtem_a5 is not None and extem_a5 is not None:
+        if fibtem_a5 < 9 and extem_a5 < 35:
+            fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
 
     advies = {}
 
