@@ -22,18 +22,28 @@ h1, h2, h3, h4, h5, h6 {
     color: #002B45 !important;
 }
 
-/* INVOERVELDEN */
+/* STANDAARD INPUTVELDEN */
 input[type="number"],
 input[type="text"],
 textarea {
+    background-color: #ffffff !important;
+    color: #002B45 !important;
+}
+
+/* AANPASSING VOOR STREAMLIT INPUT CONTAINERS */
+[data-testid="stNumberInput"] {
     background-color: #e6f4f9;
-    border-left: 6px solid #00B5E2;
-    padding: 15px;
+    border-left: 5px solid #00B5E2;
+    padding: 8px 12px;
     border-radius: 10px;
-    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+/* Inputtekst groter maken */
+[data-testid="stNumberInput"] input {
     font-size: 16px;
-    color: #002B45;
     font-weight: 600;
+    color: #002B45;
 }
 
 /* LABELS BOVEN VELDEN */
