@@ -176,11 +176,11 @@ if not st.session_state.show_advies:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
         else:
             waarschuwingen = []
-            if extem_ct == 0:
+            if extem_ct == None:
                 waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
-            if fibtem_a5 == 0:
+            if fibtem_a5 == None:
                 waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
-            if extem_a5 == 0:
+            if extem_a5 == None:
                 waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
 
             if waarschuwingen:
