@@ -139,13 +139,14 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # =======================
 if not st.session_state.show_advies:
     
-    st.markdown("Geef hieronder de ROTEM-waarden in. En geef aan welk bloedproduct u wilt geven")
-    
     product_keuze = st.radio(
+        "Kies hieronder uw bloed product die u wilt toedienen. "
         ["Omniplasma", "Cofact"],
         horizontal=True
 
     )
+
+    st.markdown("Geef hieronder de ROTEM-waarden in.")
     col1, col2 = st.columns(2)
     with col1:
         weight_kg = st.number_input("Gewicht (kg)", min_value=0, max_value=300, value=0)
