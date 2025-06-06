@@ -97,21 +97,21 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     if fibtem_a5 < 9 and extem_a5 < 35:
         fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
 
-    # Alleen tonen wat nodig is
     advies = {}
-    if keuze == "Cofact" and cofact_dosis > 0:
-        advies["Cofact"] = f"{cofact_dosis} ml"
-    elif keuze == "Omniplasma" and omniplasma > 0:
-        advies["Omniplasma"] = f"{omniplasma} ml"
 
-    if trombocyten > 0:
-        advies["Trombocyten"] = f"{trombocyten} eenheden"
+    # Altijd gekozen stollingsproduct tonen
+    if keuze == "Cofact":
+        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen nodig"
+    elif keuze == "Omniplasma":
+        advies["Omniplasma"] = f"{omniplasma} ml" if omniplasma > 0 else "Geen nodig"
 
-    if fibrinogeen > 0:
-        advies["Fibrinogeen"] = f"{fibrinogeen} gram"
+    # Altijd trombocyten tonen
+    advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Geen nodig"
+
+    # Altijd fibrinogeen tonen
+    advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen nodig"
 
     return advies
-
 
 # =======================
 # State management
