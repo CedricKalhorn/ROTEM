@@ -21,7 +21,10 @@ st.markdown("""
         border-radius: 10px;
         margin-top: 10px;
         font-size: 16px;
+        color: #002B45; /* 👈 donkerblauw/grijsachtige tekstkleur */
+        font-weight: 600;
     }
+
     .hmc-header {
         display: flex;
         justify-content: space-between;
