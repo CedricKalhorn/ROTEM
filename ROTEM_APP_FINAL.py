@@ -6,32 +6,53 @@ import streamlit as st
 st.set_page_config(page_title="ROTEM Advies Tool", layout="wide")
 st.markdown("""
 <style>
-    .stButton>button {
-        background-color: #004494;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
-        height: 3em;
-        width: 100%;
-    }
-    .advies-box {
-        background-color: #e6f4f9;
-        border-left: 6px solid #00B5E2;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 10px;
-        font-size: 16px;
-        color: #002B45; /* 👈 donkerblauw/grijsachtige tekstkleur */
-        font-weight: 600;
-    }
+/* Volledige body */
+body {
+    background-color: #f5faff;
+    color: #002B45;
+}
 
-    .hmc-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* Streamlit achtergrond container */
+[data-testid="stAppViewContainer"] {
+    background-color: #f5faff;
+}
+
+/* Sidebar (indien gebruikt) */
+[data-testid="stSidebar"] {
+    background-color: #004494;
+    color: white;
+}
+
+/* Knoppen */
+.stButton > button {
+    background-color: #004494;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Advies-boxen */
+.advies-box {
+    background-color: #e6f4f9;
+    border-left: 6px solid #00B5E2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #002B45;
+    font-weight: 600;
+}
+
+/* Info en success blocks (zoals de disclaimer) */
+[data-testid="stAlert"] {
+    background-color: #dceafc !important;
+    color: #002B45 !important;
+    border: 1px solid #00B5E2;
+    border-radius: 8px;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 # =======================
 # ROTEM Functie
