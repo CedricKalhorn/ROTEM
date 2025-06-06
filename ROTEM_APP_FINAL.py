@@ -41,7 +41,7 @@ label {
 
 /* BUTTONS */
 .stButton > button {
-    background-color: #004494;
+    background-color: #e6f4f9;
     color: white;
     font-weight: bold;
     border-radius: 8px;
