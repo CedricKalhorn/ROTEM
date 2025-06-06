@@ -155,11 +155,12 @@ if not st.session_state.show_advies:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
+    st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
         )
-        st.session_state.show_advies = True
+        st.session_state.trigger_advies = True
 
 # =======================
 # PAGINA 2 – Advies
