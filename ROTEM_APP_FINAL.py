@@ -174,11 +174,11 @@ if not st.session_state.show_advies:
         else:
             waarschuwingen = []
             if extem_ct == 0:
-                waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+                waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
             if fibtem_a5 == 0:
-                waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+                waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
             if extem_a5 == 0:
-                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik op doorgaan.")
+                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
 
             if waarschuwingen:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
