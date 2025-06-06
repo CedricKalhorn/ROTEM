@@ -45,7 +45,15 @@ textarea {
     font-weight: 600;
     color: #002B45;
 }
-
+/* RADIOBUTTONS AANGEPAST NAAR HMC STIJL */
+[data-testid="stRadio"] > div > label > div:first-child {
+    background-color: #002B45 !important;
+    border: 2px solid #002B45 !important;
+}
+[data-testid="stRadio"] > div > label[data-selected="true"] > div:first-child {
+    background-color: #00B5E2 !important;
+    border-color: #00B5E2 !important;
+}
 /* LABELS BOVEN VELDEN */
 label {
     color: #002B45 !important;
