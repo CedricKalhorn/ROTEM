@@ -101,7 +101,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     trombocyten = 0
     fibrinogeen = 0
     cofact_dosis = 0.0
-    omniplasma_tekst = "Geen nodig"
+    omniplasma_tekst = "Niet nodig in de behandeling"
 
     # flags voor gebruik
     omniplasma_used = False
@@ -134,15 +134,15 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     advies = {}
 
     if keuze == "Cofact":
-        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen nodig"
+        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
         if omniplasma_used:
             advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml"
         else:
-            advies["Omniplasma"] = "Geen nodig"
+            advies["Omniplasma"] = "Niet nodig in de behandeling"
 
-    advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Geen nodig"
-    advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen nodig"
+    advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Niet nodig in de behandeling"
+    advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Niet nodig in de behandeling"
 
     return advies
 
