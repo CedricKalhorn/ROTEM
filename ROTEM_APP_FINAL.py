@@ -103,6 +103,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     cofact_dosis = 0.0
     omniplasma_tekst = "Geen nodig"
 
+    # flags voor gebruik
+    omniplasma_used = False
+
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis_min = gewicht * 10
@@ -112,17 +115,17 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
             elif keuze == "Omniplasma":
                 omniplasma_min = ((dosis_min + 199) // 200) * 200
                 omniplasma_max = ((dosis_max + 199) // 200) * 200
-                omniplasma_tekst = f"{omniplasma_min}–{omniplasma_max} ml"
+                omniplasma_used = True
 
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
             trombocyten = 330
-            if omniplasma_min == 0 and keuze == "Omniplasma":
+            if not omniplasma_used and keuze == "Omniplasma":
                 dosis_min = gewicht * 10
                 dosis_max = gewicht * 15
                 omniplasma_min = ((dosis_min + 199) // 200) * 200
                 omniplasma_max = ((dosis_max + 199) // 200) * 200
-                omniplasma_tekst = f"{omniplasma_min}–{omniplasma_max} ml"
+                omniplasma_used = True
 
     if fibtem_a5 is not None and extem_a5 is not None:
         if fibtem_a5 < 9 and extem_a5 < 35:
@@ -130,17 +133,15 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     advies = {}
 
-
     if keuze == "Cofact":
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen nodig"
     elif keuze == "Omniplasma":
-        advies["Omniplasma"] = omniplasma_tekst
+        if omniplasma_used:
+            advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml"
+        else:
+            advies["Omniplasma"] = "Geen nodig"
 
-
-    # Altijd trombocyten tonen
     advies["Trombocyten"] = f"{trombocyten} eenheden" if trombocyten > 0 else "Geen nodig"
-
-    # Altijd fibrinogeen tonen
     advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen nodig"
 
     return advies
