@@ -135,17 +135,18 @@ if "advies_resultaat" not in st.session_state:
     st.session_state.advies_resultaat = {}
 
 # =======================
+# Disclaimer
+# =======================
+st.markdown("### ⚠️ Disclaimer")
+st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
+
+# =======================
 # HEADER met HMC-logo
 # =======================
 col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM Advies Tool")
 
-# =======================
-# Disclaimer
-# =======================
-st.markdown("### ⚠️ Disclaimer")
-st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
 
 # =======================
 # PAGINA 1 – Invoer
@@ -169,7 +170,7 @@ if not st.session_state.show_advies:
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
     st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
-    if st.button("Genereer advies"):
+    if st.button("Genereer advies ➡️"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
         )
