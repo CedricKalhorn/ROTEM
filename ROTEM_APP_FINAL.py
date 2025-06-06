@@ -26,11 +26,14 @@ h1, h2, h3, h4, h5, h6 {
 input[type="number"],
 input[type="text"],
 textarea {
-    background-color: #e6f4f9 !important;
-    color: 002B45 !important;
-    border-radius: 6px;
-    border: 1px solid #002B45;
-    padding: 10px;
+    background-color: #e6f4f9;
+    border-left: 6px solid #00B5E2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #002B45;
+    font-weight: 600;
 }
 
 /* LABELS BOVEN VELDEN */
