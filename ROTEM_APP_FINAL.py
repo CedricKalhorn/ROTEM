@@ -101,6 +101,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     trombocyten = 0
     fibrinogeen = 0
     cofact_dosis = 0.0
+    omniplasma_tekst = "Geen nodig"
 
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
