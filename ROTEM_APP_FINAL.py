@@ -167,7 +167,7 @@ if not st.session_state.show_advies:
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
         )
         st.session_state.show_advies = True
-        st.stop()
+        st.experimental_rerun()
 
 # =======================
 # PAGINA 2 – Advies
@@ -181,7 +181,7 @@ else:
 
     if st.button("⬅️ Terug naar invoer"):
         st.session_state.show_advies = False
-        st.stop()
+        st.experimental_rerun()
 
 # =======================
 # Footer
