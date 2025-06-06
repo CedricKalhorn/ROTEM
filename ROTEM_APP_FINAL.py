@@ -6,27 +6,34 @@ import streamlit as st
 st.set_page_config(page_title="ROTEM Advies Tool", layout="wide")
 st.markdown("""
 <style>
-/* ALGEMENE TEKSTEN */
+/* VOLLEDIGE PAGINAACHTERGROND */
+body, .main, [data-testid="stAppViewContainer"] {
+    background-color: #ffffff !important;
+    color: #002B45 !important;
+}
+
+/* ALGEMENE TEKSTKLEUR */
 html, body, [data-testid="stMarkdownContainer"] {
     color: #002B45 !important;
 }
 
-/* TITELS */
+/* KOPPEN */
 h1, h2, h3, h4, h5, h6 {
     color: #002B45 !important;
 }
 
-/* INPUTFIELDS */
+/* INVOERVELDEN */
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+textarea {
     background-color: #004494 !important;
     color: white !important;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid #002B45;
     padding: 10px;
 }
 
-/* LABELS BOVEN INPUT */
+/* LABELS BOVEN VELDEN */
 label {
     color: #002B45 !important;
     font-weight: bold;
@@ -38,17 +45,10 @@ label {
     color: white;
     font-weight: bold;
     border-radius: 8px;
+    height: 3em;
 }
 
-/* INFO / DISCLAIMER BLOKKEN */
-[data-testid="stAlert"] {
-    background-color: #e6f4f9 !important;
-    border-left: 6px solid #00B5E2;
-    color: #002B45 !important;
-    font-weight: 500;
-}
-
-/* ADVIESBOXEN */
+/* ADVIESBLOKKEN */
 .advies-box {
     background-color: #e6f4f9;
     border-left: 6px solid #00B5E2;
@@ -59,8 +59,17 @@ label {
     color: #002B45;
     font-weight: 600;
 }
+
+/* INFO/DISCLAIMER BLOCKS */
+[data-testid="stAlert"] {
+    background-color: #e6f4f9 !important;
+    color: #002B45 !important;
+    border: 1px solid #00B5E2;
+    border-radius: 8px;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # =======================
