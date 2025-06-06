@@ -41,7 +41,7 @@ label {
 
 /* BUTTONS */
 .stButton > button {
-    background-color: #e6f4f9;
+    background-color: #004494;
     color: white;
     font-weight: bold;
     border-radius: 8px;
@@ -71,27 +71,26 @@ label {
 """, unsafe_allow_html=True)
 
 
-
 # =======================
 # ROTEM Functie
 # =======================
-def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg):
+def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze):
     gewicht = weight_kg
     omniplasma = 0
     trombocyten = 0
     fibrinogeen = 0
     cofact_dosis = 0.0
 
-
-    
     if extem_ct > 80 and fibtem_a5 > 9:
         dosis = gewicht * 10
-        cofact_dosis = round(0.4 * weight_kg, 1)
-        omniplasma = ((dosis + 199) // 200) * 200
+        if keuze == "Cofact":
+            cofact_dosis = round(0.4 * gewicht, 1)
+        elif keuze == "Omniplasma":
+            omniplasma = ((dosis + 199) // 200) * 200
 
     if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
         trombocyten = 330
-        if omniplasma == 0:
+        if omniplasma == 0 and keuze == "Omniplasma":
             dosis = gewicht * 10
             omniplasma = ((dosis + 199) // 200) * 200
 
@@ -99,7 +98,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
 
     return {
-        "Cofact": f"{cofact_dosis} ml?" if cofact_dosis > 0 else "Geen",
+        "Cofact": f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen",
         "Omniplasma": f"{omniplasma} ml" if omniplasma > 0 else "Geen",
         "Trombocyten": f"{trombocyten} eenheden" if trombocyten > 0 else "Geen",
         "Fibrinogeen": f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen"
@@ -141,9 +140,22 @@ if not st.session_state.show_advies:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
+    product_keuze = st.radio(
+        "Welk bloedproduct heeft voorkeur bij EXTEM CT > 80?",
+        ["Omniplasma", "Cofact"],
+        horizontal=True
+    )
+
+    with st.expander("ℹ️ Wat is het verschil tussen Cofact en Omniplasma?"):
+        st.markdown("""
+        - **Cofact** werkt sneller en heeft een kleiner volume.
+        - **Omniplasma** is breder inzetbaar maar volumineuzer.
+        - Volgens protocol mag de arts kiezen bij EXTEM CT > 80.
+        """)
+
     if st.button("Genereer advies"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
-            extem_ct, fibtem_a5, extem_a5, weight_kg
+            extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
         )
         st.session_state.show_advies = True
         st.stop()
