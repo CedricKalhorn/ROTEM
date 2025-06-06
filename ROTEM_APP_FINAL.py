@@ -151,7 +151,7 @@ with col_left:
 # =======================
 if not st.session_state.show_advies:
 
-    st.markdown("Geef hieronder de ROTEM-waarden en gewicht van de patiënt.")
+    st.markdown("Geef hieronder de gewicht van de patiënt en ROTEM-waarden.")
 
     col1, col2 = st.columns(2)
     with col1:
