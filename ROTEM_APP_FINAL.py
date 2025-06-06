@@ -155,13 +155,6 @@ if not st.session_state.show_advies:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
-    with st.expander("ℹ️ Wat is het verschil tussen Cofact en Omniplasma?"):
-        st.markdown("""
-        - **Cofact** werkt sneller en heeft een kleiner volume.
-        - **Omniplasma** is breder inzetbaar maar volumineuzer.
-        - Volgens protocol mag de arts kiezen bij EXTEM CT > 80.
-        """)
-
     if st.button("Genereer advies"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
