@@ -172,7 +172,7 @@ if not st.session_state.show_advies:
 
     st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
-        if weight_kg == 0:
+        if weight_kg == None:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
         else:
             waarschuwingen = []
