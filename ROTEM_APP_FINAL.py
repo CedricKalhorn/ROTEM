@@ -99,7 +99,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
 
     return {
-        "cofact_dosis": f"{cofact_dosis} ml? if cofact > 0 else "Geen",
+        "cofact_dosis": f"{cofact_dosis} ml?" if cofact > 0 else "Geen",
         "Omniplasma": f"{omniplasma} ml" if omniplasma > 0 else "Geen",
         "Trombocyten": f"{trombocyten} eenheden" if trombocyten > 0 else "Geen",
         "Fibrinogeen": f"{fibrinogeen} gram" if fibrinogeen > 0 else "Geen"
