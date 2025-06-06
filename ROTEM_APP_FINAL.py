@@ -163,6 +163,14 @@ if not st.session_state.show_advies:
         extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=0)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=100, value=0)
 
+        
+    product_keuze = st.radio(
+        "Geef hieronder welk bloedproduct uw voorkeur heeft:",
+        ["Omniplasma", "Cofact"],
+        horizontal=True
+
+    )
+    
     st.caption("📌 Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
@@ -170,13 +178,7 @@ if not st.session_state.show_advies:
         )
         st.session_state.show_advies = True
 
-    
-    product_keuze = st.radio(
-        "Geef hieronder welk bloedproduct uw voorkeur heeft:",
-        ["Omniplasma", "Cofact"],
-        horizontal=True
 
-    )
 # =======================
 # PAGINA 2 – Advies
 # =======================
