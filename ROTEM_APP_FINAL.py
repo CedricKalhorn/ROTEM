@@ -215,6 +215,15 @@ if not st.session_state.show_advies:
 # =======================
 else:
     st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
+    input_info = (
+        f"- Gewicht: **{weight_kg} kg**\n"
+        f"- EXTEM CT: **{extem_ct} s**\n"
+        f"- FIBTEM A5: **{fibtem_a5} mm**\n"
+        f"- EXTEM A5: **{extem_a5} mm**\n"
+        f"- Gekozen product: **{product_keuze}**"
+    )
+    st.markdown("#### Gebruikte invoerwaarden:")
+    st.markdown(input_info)
 
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
@@ -223,7 +232,6 @@ else:
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
-
 # =======================
 # Footer
 # =======================
