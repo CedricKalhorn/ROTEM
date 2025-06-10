@@ -148,6 +148,8 @@ with col_left:
 if not st.session_state.liveviewer_opened:
     st.markdown("## Open de Live Viewer")
     st.warning("⚠️ Open eerst de Live Viewer in het EPD zodat je toegang hebt tot actuele ROTEM-waarden.")
+
+    st.caption("Dubbel klik indien nodig om advies te genereren.")
     if st.button("Live viewer is geopend, ga verder ➡️"):
         st.session_state.liveviewer_opened = True
 
@@ -165,6 +167,7 @@ elif not st.session_state.show_advies:
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
 
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
+    
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
