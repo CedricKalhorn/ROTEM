@@ -158,8 +158,12 @@ if "advies_resultaat" not in st.session_state:
 # Disclaimer
 # =======================
 st.markdown("### ⚠️ Disclaimer")
-st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
-
+st.info(
+    "Deze tool geeft een **ondersteunend advies** op basis van ROTEM-waarden. "
+    "De arts blijft te allen tijde verantwoordelijk voor het uiteindelijke behandelbeleid. "
+    "Controleer altijd de onderliggende invoerwaarden en protocollen. "
+    "Tool-versie: **v1.2.0**, gegenereerd op " + datetime.now().strftime("%d-%m-%Y %H:%M")
+)
 # =======================
 # HEADER met HMC-logo
 # =======================
@@ -188,7 +192,10 @@ if not st.session_state.show_advies:
         ["Omniplasma", "Cofact"],
         horizontal=True
     )
+    if extem_ct is not None and not (0 < extem_ct < 200):
+        st.warning("⚠️ EXTEM CT lijkt buiten normaal bereik te liggen (0–200 s).")
 
+    
     st.caption("Dubbel klik indien nodig om advies te genereren.")
     if st.button("Genereer advies ➡️"):
         if weight_kg == None:
@@ -209,12 +216,31 @@ if not st.session_state.show_advies:
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
             st.session_state.show_advies = True
-
+        except Exception as e:
+            st.error("❌ Er is een onverwachte fout opgetreden bij de berekening. "
+                     "Controleer je invoer of neem contact op met de ICT-afdeling.")
+            st.exception(e)
+        else:
+            st.session_state.advies_resultaat = advies
+            st.session_state.show_advies = True
 # =======================
 # PAGINA 2 – Advies
 # =======================
 else:
     st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
+    input_info = (
+        f"- Gewicht: **{weight_kg} kg**\n"
+        f"- EXTEM CT: **{extem_ct} s**\n"
+        f"- FIBTEM A5: **{fibtem_a5} mm**\n"
+        f"- EXTEM A5: **{extem_a5} mm**\n"
+        f"- Gekozen product: **{product_keuze}**"
+    )
+    st.markdown("#### Gebruikte invoerwaarden:")
+    st.markdown(input_info)
+
+    for product, waarde in st.session_state.advies_resultaat.items():
+        st.markdown(f"### {product}")
+        st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
 
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
