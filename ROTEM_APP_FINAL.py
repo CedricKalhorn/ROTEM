@@ -205,7 +205,8 @@ else:
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
     if "Omniplasma" in st.session_state.advies_resultaat and "ml" in st.session_state.advies_resultaat["Omniplasma"]:
-        st.caption(f"ℹ️ Berekening gebaseerd op EXTEM CT = {extem_ct} sec en FIBTEM A5 = {fibtem_a5} mm.")
+    st.caption(f"ℹ️ Berekening gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+
 
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
