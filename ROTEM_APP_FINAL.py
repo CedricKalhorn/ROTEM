@@ -189,16 +189,66 @@ elif not st.session_state.show_advies:
 # =======================
 # Pagina 2 – Advies
 # =======================
+# =======================
+# Pagina 2 – Advies
+# =======================
 else:
     st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
+    
+    # Toon ingevoerde waarden overzichtelijk
+    st.markdown("### Gebruikte invoerwaarden")
+    st.markdown(f"""
+    - Gewicht: **{weight_kg} kg**
+    - EXTEM CT: **{extem_ct} seconden**
+    - EXTEM A5: **{extem_a5} mm**
+    - FIBTEM A5: **{fibtem_a5} mm**
+    - Gekozen product: **{product_keuze}**
+    """)
+
+    # Bereken her opnieuw voor uitleg per product
+    uitleg = {}
+    gewicht = weight_kg
+    omniplasma_used = False
+    cofact_dosis = 0.0
+    trombocyten = 0
+    fibrinogeen = 0
+
+    if extem_ct is not None and fibtem_a5 is not None:
+        if extem_ct > 80 and fibtem_a5 > 9:
+            if product_keuze == "Cofact":
+                cofact_dosis = round(0.4 * gewicht, 1)
+                uitleg["Cofact"] = f"Op basis van EXTEM CT > 80 s én FIBTEM A5 > 9 mm"
+            elif product_keuze == "Omniplasma":
+                omniplasma_used = True
+                uitleg["Omniplasma"] = f"Op basis van EXTEM CT > 80 s én FIBTEM A5 > 9 mm"
+
+    if extem_a5 is not None and fibtem_a5 is not None:
+        if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
+            trombocyten = 1
+            uitleg["Trombocyten"] = f"Op basis van EXTEM A5 tussen 30–40 mm én FIBTEM A5 > 9 mm"
+            if product_keuze == "Omniplasma" and not omniplasma_used:
+                omniplasma_used = True
+                uitleg["Omniplasma"] = "Op basis van EXTEM A5 tussen 30–40 mm én FIBTEM A5 > 9 mm"
+
+    if fibtem_a5 is not None and extem_a5 is not None:
+        if fibtem_a5 < 9 and extem_a5 < 35:
+            fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
+            uitleg["Fibrinogeen"] = f"Op basis van FIBTEM A5 < 9 mm én EXTEM A5 < 35 mm"
+
+    # Toon advies en uitleg
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
+        if product in uitleg:
+            st.caption(f"*Beslissing gebaseerd op: {uitleg[product]}*")
+        else:
+            st.caption("*Geen indicatie op basis van de drempelwaarden volgens protocol.*")
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
         st.session_state.liveviewer_opened = False
+
 
 # =======================
 # Footer
