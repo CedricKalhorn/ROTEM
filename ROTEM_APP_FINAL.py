@@ -150,7 +150,6 @@ if not st.session_state.liveviewer_opened:
     st.warning("⚠️ Open eerst de Live Viewer in het EPD zodat je toegang hebt tot actuele ROTEM-waarden.")
     if st.button("✅ Live viewer is geopend, ga verder"):
         st.session_state.liveviewer_opened = True
-        st.experimental_rerun()
 
 # =======================
 # Pagina 1 – Invoer
