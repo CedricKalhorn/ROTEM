@@ -197,32 +197,34 @@ if not st.session_state.show_advies:
 
     
     st.caption("Dubbel klik indien nodig om advies te genereren.")
-    if st.button("Genereer advies ➡️"):
-        if weight_kg == None:
-            st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
-        else:
-            waarschuwingen = []
-            if extem_ct == None:
-                waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
-            if fibtem_a5 == None:
-                waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
-            if extem_a5 == None:
-                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
 
-            if waarschuwingen:
-                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+if st.button("Genereer advies ➡️"):
+    if weight_kg is None:
+        st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+    else:
+        waarschuwingen = []
+        if extem_ct is None:
+            waarschuwingen.append("- EXTEM CT is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
+        if fibtem_a5 is None:
+            waarschuwingen.append("- FIBTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
+        if extem_a5 is None:
+            waarschuwingen.append("- EXTEM A5 is niet ingevuld. Was deze waarde wel bekend, vul hem dan nog in. Zo niet, klik nogmaals op genereer advies.")
 
-            st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
+        if waarschuwingen:
+            st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+
+        try:
+            advies = stap_2_na_ROTEM_geleide_stollingscorrectie(
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
+            st.session_state.advies_resultaat = advies
             st.session_state.show_advies = True
         except Exception as e:
             st.error("❌ Er is een onverwachte fout opgetreden bij de berekening. "
                      "Controleer je invoer of neem contact op met de ICT-afdeling.")
             st.exception(e)
-        else:
-            st.session_state.advies_resultaat = advies
-            st.session_state.show_advies = True
+
+
 # =======================
 # PAGINA 2 – Advies
 # =======================
