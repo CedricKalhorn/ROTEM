@@ -166,11 +166,20 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM Advies Tool")
+# =======================
+# Pagina 0 – Live viewer openen
+# =======================
+if not st.session_state.liveviewer_opened:
+    st.markdown("## Stap 1: Open de Live Viewer")
+    st.warning("⚠️ Open eerst de Live Viewer in het EPD zodat je toegang hebt tot actuele ROTEM-waarden.")
+    if st.button("✅ Live viewer is geopend, ga verder"):
+        st.session_state.liveviewer_opened = True
+        st.experimental_rerun()
 
 # =======================
-# PAGINA 1 – Invoer
+# Pagina 1 – Invoer
 # =======================
-if not st.session_state.show_advies:
+elif not st.session_state.show_advies:
 
     st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
 
