@@ -244,10 +244,6 @@ else:
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
 
-    for product, waarde in st.session_state.advies_resultaat.items():
-        st.markdown(f"### {product}")
-        st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
-
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
