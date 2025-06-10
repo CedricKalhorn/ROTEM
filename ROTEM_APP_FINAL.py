@@ -153,6 +153,9 @@ if "show_advies" not in st.session_state:
     st.session_state.show_advies = False
 if "advies_resultaat" not in st.session_state:
     st.session_state.advies_resultaat = {}
+if "liveviewer_opened" not in st.session_state:
+    st.session_state.liveviewer_opened = False
+
 
 # =======================
 # Disclaimer
