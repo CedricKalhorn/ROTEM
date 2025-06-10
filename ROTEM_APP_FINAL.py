@@ -192,6 +192,9 @@ elif not st.session_state.show_advies:
 # =======================
 # Pagina 2 – Advies
 # =======================
+# =======================
+# Pagina 2 – Advies
+# =======================
 else:
     st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
 
@@ -220,10 +223,10 @@ else:
 
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
-            if product_keuze == "Cofact":
+            if keuze == "Cofact":
                 cofact_dosis = round(0.4 * gewicht, 1)
                 uitleg["Cofact"] = f"Op basis van EXTEM CT > 80 s én FIBTEM A5 > 9 mm"
-            elif product_keuze == "Omniplasma":
+            elif keuze == "Omniplasma":
                 omniplasma_used = True
                 uitleg["Omniplasma"] = f"Op basis van EXTEM CT > 80 s én FIBTEM A5 > 9 mm"
 
@@ -231,7 +234,7 @@ else:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
             trombocyten = 1
             uitleg["Trombocyten"] = f"Op basis van EXTEM A5 tussen 30–40 mm én FIBTEM A5 > 9 mm"
-            if product_keuze == "Omniplasma" and not omniplasma_used:
+            if keuze == "Omniplasma" and not omniplasma_used:
                 omniplasma_used = True
                 uitleg["Omniplasma"] = "Op basis van EXTEM A5 tussen 30–40 mm én FIBTEM A5 > 9 mm"
 
@@ -253,6 +256,7 @@ else:
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
         st.session_state.liveviewer_opened = False
+
 
 
 # =======================
