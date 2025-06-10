@@ -205,17 +205,17 @@ else:
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
     
-        # Toelichting per product
+        # Toelichting per bloedproduct
         if product == "Omniplasma" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Cofact" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Trombocyten" and "1 eenheid" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+            st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Fibrinogeen" and "gram" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
-    
+            st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         
+            
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
