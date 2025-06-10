@@ -150,7 +150,7 @@ if not st.session_state.liveviewer_opened:
     st.warning("⚠️ Open eerst de Live Viewer zodat je toegang hebt tot de ROTEM-waarden.")
 
     st.caption("Dubbel klik indien nodig om door te gaan naar invoerscherm.")
-    if st.button("Live viewer is geopend, ga verder ➡️"):
+    if st.button("Live viewer is geopend, ga verder naar invoerscherm ➡️"):
         st.session_state.liveviewer_opened = True
 
 # =======================
