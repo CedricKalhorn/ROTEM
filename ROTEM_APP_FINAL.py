@@ -194,20 +194,25 @@ elif not st.session_state.show_advies:
 # =======================
 else:
     st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
-    
+
     # Toon ingevoerde waarden overzichtelijk
     st.markdown("### Gebruikte invoerwaarden")
     st.markdown(f"""
-    - Gewicht: **{weight_kg} kg**
-    - EXTEM CT: **{extem_ct} seconden**
-    - EXTEM A5: **{extem_a5} mm**
-    - FIBTEM A5: **{fibtem_a5} mm**
-    - Gekozen product: **{product_keuze}**
+    - Gewicht: **{st.session_state.weight_kg} kg**
+    - EXTEM CT: **{st.session_state.extem_ct} seconden**
+    - EXTEM A5: **{st.session_state.extem_a5} mm**
+    - FIBTEM A5: **{st.session_state.fibtem_a5} mm**
+    - Gekozen product: **{st.session_state.product_keuze}**
     """)
 
-    # Bereken her opnieuw voor uitleg per product
+    # Bereid uitleg per product voor
     uitleg = {}
-    gewicht = weight_kg
+    gewicht = st.session_state.weight_kg
+    extem_ct = st.session_state.extem_ct
+    extem_a5 = st.session_state.extem_a5
+    fibtem_a5 = st.session_state.fibtem_a5
+    keuze = st.session_state.product_keuze
+
     omniplasma_used = False
     cofact_dosis = 0.0
     trombocyten = 0
