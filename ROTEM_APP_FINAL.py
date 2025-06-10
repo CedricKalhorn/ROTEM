@@ -207,9 +207,9 @@ else:
     
         # Toelichting per product
         if product == "Omniplasma" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
         elif product == "Cofact" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
         elif product == "Trombocyten" and "1 eenheid" in waarde:
             st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
         elif product == "Fibrinogeen" and "gram" in waarde:
