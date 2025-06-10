@@ -146,9 +146,9 @@ with col_left:
 # Pagina 0 – Live viewer openen
 # =======================
 if not st.session_state.liveviewer_opened:
-    st.markdown("## Stap 1: Open de Live Viewer")
+    st.markdown("## Open de Live Viewer")
     st.warning("⚠️ Open eerst de Live Viewer in het EPD zodat je toegang hebt tot actuele ROTEM-waarden.")
-    if st.button("✅ Live viewer is geopend, ga verder"):
+    if st.button("Live viewer is geopend, ga verder ➡️"):
         st.session_state.liveviewer_opened = True
 
 # =======================
