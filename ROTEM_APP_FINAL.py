@@ -204,9 +204,15 @@ else:
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
-    if "Omniplasma" in st.session_state.advies_resultaat and "ml" in st.session_state.advies_resultaat["Omniplasma"]:
-        st.caption(f"ℹ️ Berekening gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
-
+     # Toelichting per product
+    if product == "Omniplasma" and "ml" in waarde:
+        st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+    elif product == "Cofact" and "ml" in waarde:
+        st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} sec en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+    elif product == "Trombocyten" and "1 eenheid" in waarde:
+        st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
+    elif product == "Fibrinogeen" and "gram" in waarde:
+        st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm en FIBTEM A5 = {st.session_state.fibtem_a5} mm.")
 
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
