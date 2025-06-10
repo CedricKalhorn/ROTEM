@@ -198,7 +198,6 @@ else:
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
-        st.session_state.liveviewer_opened = False
 
 # =======================
 # Footer
