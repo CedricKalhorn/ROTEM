@@ -119,14 +119,13 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml" if omniplasma_used else "Niet nodig in de behandeling"
+        
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
-    # Toon nu beide doseringen
-    if fibrinogeen_g > 0:
-        advies["Fibrinogeen dosis"]  = f"{fibrinogeen_g} g"
-        advies["Fibrinogeen concentraat"] = f"{fibrinogeen_ml} ml"
-    else:
-        advies["Fibrinogeen dosis"]  = "Niet nodig"
-        advies["Fibrinogeen concentraat"] = "Niet nodig"
+
+    if keuze_fib == "Fibrinogeen dosis":
+        advies["Fibrinogeen dosis"]  = f"{fibrinogeen_g} g" if fibrinogeen_g > 0 else "Niet nodig in de behandeling"
+    elif keuze_fib == "Fibrinogeen concentraat":
+        advies["Fibrinogeen concentraat"] = f"{fibrinogeen_ml} ml" if fibrinogeen_g > 0 else "Niet nodig in de behandeling"
 
     return advies
 
@@ -178,6 +177,7 @@ elif not st.session_state.show_advies:
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
 
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
+    product_keuze_fib = st.radio("Geef hieronder of u liever fibrinogeen dosis of concentraat wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
