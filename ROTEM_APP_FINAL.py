@@ -218,13 +218,13 @@ else:
 
         # Toelichting per bloedproduct
         if product == "Omniplasma" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
+            st.caption(f"ℹ️ Gebaseerd op: EXTEM CT > 80 sec want gegeven waarde is {st.session_state.extem_ct} seconden , FIBTEM A5 > 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Cofact" and "ml" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
+            st.caption(f"ℹ️ Gebaseerd op: EXTEM CT > 80 sec want gegeven waarde is {st.session_state.extem_ct} seconden, FIBTEM A5 > 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Trombocyten" and "1 eenheid" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
+            st.caption(f"ℹ️ Gebaseerd op: EXTEM A5 30-44 mm of < 30 mm want gegeven waarde is {st.session_state.extem_a5} mm, FIBTEM A5 > 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product.startswith("Fibrinogeen") and waarde != "Niet nodig":
-            st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, "  f"EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
+            st.caption(f"ℹ️ Gebaseerd op: FIBTEM A5 < 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm, "  f"EXTEM A5 < 35 mm want gegeven waarde is {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
