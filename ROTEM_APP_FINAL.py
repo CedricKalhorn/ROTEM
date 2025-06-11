@@ -170,21 +170,28 @@ elif not st.session_state.show_advies:
 
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
-    if st.button("Genereer advies ➡️"):
-        if weight_kg is None:
-            st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
-        else:
-            waarschuwingen = []
-            if extem_ct is None:
-                waarschuwingen.append("- EXTEM CT is niet ingevuld.")
-            if fibtem_a5 is None:
-                waarschuwingen.append("- FIBTEM A5 is niet ingevuld.")
-            if extem_a5 is None:
-                waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
-            if waarschuwingen:
-                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+if "advies_knop_ingedrukt" not in st.session_state:
+    st.session_state.advies_knop_ingedrukt = False
 
-            # Sla inputs tijdelijk op
+if st.button("Genereer advies ➡️"):
+    st.session_state.advies_knop_ingedrukt = True
+
+if st.session_state.advies_knop_ingedrukt:
+    if weight_kg is None:
+        st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+        st.session_state.show_advies = False
+    else:
+        waarschuwingen = []
+        if extem_ct is None:
+            waarschuwingen.append("- EXTEM CT is niet ingevuld.")
+        if fibtem_a5 is None:
+            waarschuwingen.append("- FIBTEM A5 is niet ingevuld.")
+        if extem_a5 is None:
+            waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
+        if waarschuwingen:
+            st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+            st.session_state.show_advies = False
+        else:
             st.session_state.extem_ct = extem_ct
             st.session_state.fibtem_a5 = fibtem_a5
             st.session_state.extem_a5 = extem_a5
@@ -195,6 +202,7 @@ elif not st.session_state.show_advies:
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
             st.session_state.show_advies = True
+
 
 # =======================
 # Pagina 2 – Advies
