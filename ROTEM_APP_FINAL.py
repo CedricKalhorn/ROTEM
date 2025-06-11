@@ -110,9 +110,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
         delta = 12 - fibtem_a5
         # gram
-        fibrinogeen_g = round((6.25 * delta * gewicht) / 1000, 1)
+        fibrinogeen_g = round((6.25 * delta * gewicht) / 1000)
         # ml
-        fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht, 1)
+        fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
 
     advies = {}
     if keuze == "Cofact":
