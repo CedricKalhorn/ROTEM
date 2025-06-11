@@ -184,12 +184,13 @@ elif not st.session_state.show_advies:
     if st.button("Genereer advies ➡️"):
         if weight_kg is None:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+        if fibtem_a5 is None:
+            st.error("❌ FIBTEM_A5 is verplicht om het protocol te doorlopen. Vul een waarde in.")
+
         else:
             waarschuwingen = []
             if extem_ct is None:
                 waarschuwingen.append("- EXTEM CT is niet ingevuld.")
-            if fibtem_a5 is None:
-                waarschuwingen.append("- FIBTEM A5 is niet ingevuld.")
             if extem_a5 is None:
                 waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
             if waarschuwingen:
