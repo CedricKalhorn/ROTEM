@@ -177,7 +177,7 @@ elif not st.session_state.show_advies:
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
 
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
-    product_keuze_fib = st.radio("Geef hieronder of u liever fibrinogeen dosis of concentraat wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
+    product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
@@ -185,11 +185,11 @@ elif not st.session_state.show_advies:
         if weight_kg is None:
             st.error("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
-            st.error("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 nog in.")
+            st.error("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
         if extem_ct is None:
-            st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT nog in.")
+            st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
         if extem_a5 is None:
-            st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 nog in.")
+            st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
             st.stop()
             
             # Sla inputs tijdelijk op
