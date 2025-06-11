@@ -97,7 +97,8 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
-            trombocyten = 1
+            trombocyten_eenheid = 1
+            trombocyten_ml = 330
             if not omniplasma_used and keuze == "Omniplasma":
                 dosis_min = gewicht * 10
                 dosis_max = gewicht * 15
@@ -114,7 +115,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml" if omniplasma_used else "Niet nodig in de behandeling"
-    advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
+    advies["Trombocyten"] = f"{trombocyten_eenheid} eenheid of {trombocyten_ml} ml" if trombocyten > 0 else "Niet nodig in de behandeling"
     advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Niet nodig in de behandeling"
 
     return advies
@@ -167,7 +168,7 @@ elif not st.session_state.show_advies:
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
 
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
-    
+
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
@@ -183,14 +184,14 @@ elif not st.session_state.show_advies:
                 waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
             if waarschuwingen:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
-    
+
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
             st.session_state.fibtem_a5 = fibtem_a5
             st.session_state.extem_a5 = extem_a5
             st.session_state.weight_kg = weight_kg
             st.session_state.product_keuze = product_keuze
-    
+
             st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
@@ -204,7 +205,7 @@ else:
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
-    
+
         # Toelichting per bloedproduct
         if product == "Omniplasma" and "ml" in waarde:
             st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
@@ -214,8 +215,8 @@ else:
             st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Fibrinogeen" and "gram" in waarde:
             st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
-        
-            
+
+
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
