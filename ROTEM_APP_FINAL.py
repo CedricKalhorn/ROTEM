@@ -139,8 +139,6 @@ if "advies_resultaat" not in st.session_state:
     st.session_state.advies_resultaat = {}
 if "liveviewer_opened" not in st.session_state:
     st.session_state.liveviewer_opened = False
-if "confirm_missing" not in st.session_state:
-    st.session_state.confirm_missing = False
 
 # =======================
 # Disclaimer
@@ -184,51 +182,31 @@ elif not st.session_state.show_advies:
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
-        # 1) Gewicht verplicht
         if weight_kg is None:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
-            st.stop()
-    
-        # 2) FIBTEM A5 verplicht
         if fibtem_a5 is None:
-            st.error(
-                "❌ FIBTEM A5 is verplicht om het protocol te doorlopen. "
-                "Vul een waarde in als deze bekend is. Zo niet, vraag ROTEM opnieuw aan!"
-            )
-            st.stop()
-    
-        # 3) Check optionele EXTEM-waardes
-        missing = []
-        if extem_ct is None:
-            missing.append("- EXTEM CT is niet ingevuld.")
-        if extem_a5 is None:
-            missing.append("- EXTEM A5 is niet ingevuld.")
-    
-        # 4) Eerste klik met missings → warning + stop én vlag zetten
-        if missing and not st.session_state.confirm_missing:
-            st.warning(
-                "⚠️ Waarschuwing:\n"
-                + "\n".join(missing)
-                + "\n\nDubbelklik op 'Genereer advies' om door te gaan zonder deze waarden."
-            )
-            st.session_state.confirm_missing = True
-            st.stop()
-    
-        # 5) Bij tweede klik (of als er geen missings zijn) resetten we de flag
-        st.session_state.confirm_missing = False
+            st.error("❌ FIBTEM A5 is verplicht om het protocol te doorlopen. Vul een waarde in als deze bekend is. Zo niet, vraag ROTEM opnieuw aan! ")
+        else:
+            waarschuwingen = []
+            if extem_ct is None:
+                waarschuwingen.append("- EXTEM CT is niet ingevuld. Als hij niet bekend is klik dan door.")
+            if extem_a5 is None:
+                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Als hij niet bekend is klik dan door.")
+            if waarschuwingen:
+                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+                st.stop()
+            # Sla inputs tijdelijk op
+            st.session_state.extem_ct = extem_ct
+            st.session_state.fibtem_a5 = fibtem_a5
+            st.session_state.extem_a5 = extem_a5
+            st.session_state.weight_kg = weight_kg
+            st.session_state.product_keuze = product_keuze
 
-    # 6) Sla alle inputs (evt. None) op
-    st.session_state.weight_kg     = weight_kg
-    st.session_state.fibtem_a5     = fibtem_a5
-    st.session_state.extem_ct      = extem_ct
-    st.session_state.extem_a5      = extem_a5
-    st.session_state.product_keuze = product_keuze
+            st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
+                extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
+            )
+            st.session_state.show_advies = True
 
-    # 7) Genereer advies
-    st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
-        extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
-    )
-    st.session_state.show_advies = True
 # =======================
 # Pagina 2 – Advies
 # =======================
