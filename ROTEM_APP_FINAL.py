@@ -184,13 +184,17 @@ elif not st.session_state.show_advies:
     if st.button("Genereer advies ➡️"):
         if weight_kg is None:
             st.error("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
+            st.stop()
         if fibtem_a5 is None:
             st.error("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
+            st.stop()
         if extem_ct is None:
             st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
+            st.stop()
         if extem_a5 is None:
             st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
-        else st.stop()
+            st.stop()
+
         
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
