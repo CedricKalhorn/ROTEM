@@ -184,13 +184,13 @@ elif not st.session_state.show_advies:
     if st.button("Genereer advies ➡️"):
         waarschuwingen = []
         if weight_kg is None:
-                waarschuwingen.append("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
+                waarschuwingen.append("- ❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
-                waarschuwingen.append("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
+                waarschuwingen.append("- ❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
         if extem_ct is None:
-                waarschuwingen.append("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
+                waarschuwingen.append("- ❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
         if extem_a5 is None:
-                waarschuwingen.append("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
+                waarschuwingen.append("- ❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
 
         if waarschuwingen:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
