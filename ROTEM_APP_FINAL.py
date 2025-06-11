@@ -182,19 +182,19 @@ elif not st.session_state.show_advies:
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
+        waarschuwingen = []
         if weight_kg is None:
-            st.error("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
-            st.stop()
+                waarschuwingen.append("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
-            st.error("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
-            st.stop()
+                waarschuwingen.append("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
         if extem_ct is None:
-            st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
-            st.stop()
+                waarschuwingen.append("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
         if extem_a5 is None:
-            st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
-            st.stop()
+                waarschuwingen.append("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
 
+        if waarschuwingen:
+                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+                st.stop()
         
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
