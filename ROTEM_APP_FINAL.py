@@ -122,9 +122,11 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
     # Toon nu beide doseringen
     if fibrinogeen_g > 0:
-        advies["Fibrinogeen"] = f"{fibrinogeen_g} g ({fibrinogeen_ml} ml)"
+        advies["Fibrinogeen (g)"]  = f"{fibrinogeen_g} g"
+        advies["Fibrinogeen (ml)"] = f"{fibrinogeen_ml} ml"
     else:
-        advies["Fibrinogeen"] = "Niet nodig in de behandeling"
+        advies["Fibrinogeen (g)"]  = "Niet nodig"
+        advies["Fibrinogeen (ml)"] = "Niet nodig"
 
     return advies
 
@@ -221,9 +223,8 @@ else:
             st.caption(f"ℹ️ Gebaseerd op EXTEM CT = {st.session_state.extem_ct} seconden, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Trombocyten" and "1 eenheid" in waarde:
             st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
-        elif product == "Fibrinogeen" and "gram" in waarde:
-            st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
-        
+        elif product.startswith("Fibrinogeen") and waarde != "Niet nodig":
+            st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, "  f"EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
