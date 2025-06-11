@@ -185,14 +185,13 @@ elif not st.session_state.show_advies:
         if weight_kg is None:
             st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
-            st.error("❌ FIBTEM_A5 is verplicht om het protocol te doorlopen. Vul een waarde in.")
-
+            st.error("❌ FIBTEM_A5 is verplicht om het protocol te doorlopen. Vul een waarde in als deze bekend is. Zo niet, vraag ROTEM opnieuw aan! ")
         else:
             waarschuwingen = []
             if extem_ct is None:
-                waarschuwingen.append("- EXTEM CT is niet ingevuld.")
+                waarschuwingen.append("- EXTEM CT is niet ingevuld. Als hij niet bekend is klik dan door.")
             if extem_a5 is None:
-                waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
+                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Als hij niet bekend is klik dan door.")
             if waarschuwingen:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
                 st.stop()
