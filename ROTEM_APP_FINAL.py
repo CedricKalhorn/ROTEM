@@ -80,7 +80,8 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     omniplasma_min = 0
     omniplasma_max = 0
     trombocyten = 0
-    fibrinogeen = 0
+    fibrinogeen_g = 0
+    fibrinogeen_ml = 0.0
     cofact_dosis = 0.0
     omniplasma_used = False
 
@@ -105,9 +106,13 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                 omniplasma_max = ((dosis_max + 199) // 200) * 200
                 omniplasma_used = True
 
-    if fibtem_a5 is not None and extem_a5 is not None:
-        if fibtem_a5 < 9 and extem_a5 < 35:
-            fibrinogeen = round((6.25 * (12 - fibtem_a5) * gewicht) / 1000)
+ # Fibrinogeen-berekening
+    if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
+        delta = 12 - fibtem_a5
+        # gram
+        fibrinogeen_g = round((6.25 * delta * gewicht) / 1000, 1)
+        # ml
+        fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht, 1)
 
     advies = {}
     if keuze == "Cofact":
@@ -115,7 +120,11 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml" if omniplasma_used else "Niet nodig in de behandeling"
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
-    advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Niet nodig in de behandeling"
+    # Toon nu beide doseringen
+    if fibrinogeen_g > 0:
+        advies["Fibrinogeen"] = f"{fibrinogeen_g} g ({fibrinogeen_ml} ml)"
+    else:
+        advies["Fibrinogeen"] = "Niet nodig in de behandeling"
 
     return advies
 
@@ -214,7 +223,7 @@ else:
             st.caption(f"ℹ️ Gebaseerd op EXTEM A5 = {st.session_state.extem_a5} mm, FIBTEM A5 = {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Fibrinogeen" and "gram" in waarde:
             st.caption(f"ℹ️ Gebaseerd op FIBTEM A5 = {st.session_state.fibtem_a5} mm, EXTEM A5 = {st.session_state.extem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
-
+        
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
