@@ -122,11 +122,11 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
     # Toon nu beide doseringen
     if fibrinogeen_g > 0:
-        advies["Fibrinogeen (g)"]  = f"{fibrinogeen_g} g"
-        advies["Fibrinogeen (ml)"] = f"{fibrinogeen_ml} ml"
+        advies["Fibrinogeen dosis"]  = f"{fibrinogeen_g} g"
+        advies["Fibrinogeen concentraat"] = f"{fibrinogeen_ml} ml"
     else:
-        advies["Fibrinogeen (g)"]  = "Niet nodig"
-        advies["Fibrinogeen (ml)"] = "Niet nodig"
+        advies["Fibrinogeen dosis"]  = "Niet nodig"
+        advies["Fibrinogeen concentraat"] = "Niet nodig"
 
     return advies
 
