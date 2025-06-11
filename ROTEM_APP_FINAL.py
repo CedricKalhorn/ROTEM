@@ -98,7 +98,6 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
             trombocyten_eenheid = 1
-            trombocyten_ml = 330
             if not omniplasma_used and keuze == "Omniplasma":
                 dosis_min = gewicht * 10
                 dosis_max = gewicht * 15
@@ -115,7 +114,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml" if omniplasma_used else "Niet nodig in de behandeling"
-    advies["Trombocyten"] = f"{trombocyten_eenheid} eenheid of {trombocyten_ml} ml" if trombocyten > 0 else "Niet nodig in de behandeling"
+    advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
     advies["Fibrinogeen"] = f"{fibrinogeen} gram" if fibrinogeen > 0 else "Niet nodig in de behandeling"
 
     return advies
