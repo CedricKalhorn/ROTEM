@@ -190,7 +190,6 @@ elif not st.session_state.show_advies:
             st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT in.")
         if extem_a5 is None:
             st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 in.")
-            st.stop()
             
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
