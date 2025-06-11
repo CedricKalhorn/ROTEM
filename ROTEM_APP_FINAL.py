@@ -194,7 +194,7 @@ elif not st.session_state.show_advies:
                 waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
             if waarschuwingen:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
-            st.stop()
+                st.stop()
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
             st.session_state.fibtem_a5 = fibtem_a5
