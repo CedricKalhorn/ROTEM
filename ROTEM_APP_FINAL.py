@@ -228,6 +228,14 @@ else:
             """, unsafe_allow_html=True)
 
         elif product == "Cofact" and "ml" in waarde:
+            st.markdown(f"""
+            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
+            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
+                <li>EXTEM CT &gt; 80 sec (gegeven waarde: {st.session_state.extem_ct} sec)</li>
+                <li>FIBTEM A5 &gt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
+                <li>Gewicht: {st.session_state.weight_kg} kg</li>
+            </ul>
+            """, unsafe_allow_html=True)       
             st.caption(f"ℹ️ Gebaseerd op: EXTEM CT > 80 sec want gegeven waarde is {st.session_state.extem_ct} seconden, FIBTEM A5 > 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
         elif product == "Trombocyten" and "1 eenheid" in waarde:
             st.caption(f"ℹ️ Gebaseerd op: EXTEM A5 30-44 mm of < 30 mm want gegeven waarde is {st.session_state.extem_a5} mm, FIBTEM A5 > 9 mm want gegeven waarde is {st.session_state.fibtem_a5} mm en gewicht = {st.session_state.weight_kg} kg.")
