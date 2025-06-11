@@ -183,18 +183,15 @@ elif not st.session_state.show_advies:
 
     if st.button("Genereer advies ➡️"):
         if weight_kg is None:
-            st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
+            st.error("❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
-            st.error("❌ FIBTEM A5 is verplicht om het protocol te doorlopen. Vul een waarde in als deze bekend is. Zo niet, vraag ROTEM opnieuw aan! ")
-        else:
-            waarschuwingen = []
-            if extem_ct is None:
-                waarschuwingen.append("- EXTEM CT is niet ingevuld. Als hij niet bekend is klik dan door.")
-            if extem_a5 is None:
-                waarschuwingen.append("- EXTEM A5 is niet ingevuld. Als hij niet bekend is klik dan door.")
-            if waarschuwingen:
-                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
-                st.stop()
+            st.error("❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 nog in.")
+        if extem_ct is None:
+            st.error("❌ EXTEM CT is niet ingevuld! Vul de EXTEM CT nog in.")
+        if extem_a5 is None:
+            st.error("❌ EXTEM A5 is niet ingevuld! Vul de EXTEM A5 nog in.")
+            st.stop()
+            
             # Sla inputs tijdelijk op
             st.session_state.extem_ct = extem_ct
             st.session_state.fibtem_a5 = fibtem_a5
