@@ -247,8 +247,17 @@ else:
             </ul>
             """, unsafe_allow_html=True)
         elif product.startswith("Fibrinogeen") and waarde != "Niet nodig":
+            st.markdown(f"""
+            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
+            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
+                <li>FIBTEM A5 &lt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
+                <li>EXTEM A5 &lt; 35 mm (gegeven waarde: {st.session_state.extem_a5} mm)</li>
+                <li>Gewicht: {st.session_state.weight_kg} kg</li>
+            </ul>
+            """, unsafe_allow_html=True)
 
-st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
+
+    st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
         st.session_state.show_advies = False
 
