@@ -182,37 +182,30 @@ elif not st.session_state.show_advies:
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
-    # Gewicht blijft verplicht
-    if weight_kg is None:
-        st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
-        st.session_state.show_advies = False
-    else:
-        # Bouw warning-lijst op
-        waarschuwingen = []
-        if extem_ct is None:
-            waarschuwingen.append("- EXTEM CT is niet ingevuld.")
-        if fibtem_a5 is None:
-            waarschuwingen.append("- FIBTEM A5 is niet ingevuld.")
-        if extem_a5 is None:
-            waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
-
-        if waarschuwingen:
-            # Toon warnings, blokkeer adviesscherm
-            st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
-            st.session_state.show_advies = False
+        if weight_kg is None:
+            st.error("❌ Gewicht is verplicht. Vul een geschat of exact gewicht in.")
         else:
-            # Alles wat je nú opslaat én laat zien
-            st.session_state.extem_ct       = extem_ct
-            st.session_state.fibtem_a5      = fibtem_a5
-            st.session_state.extem_a5       = extem_a5
-            st.session_state.weight_kg      = weight_kg
-            st.session_state.product_keuze  = product_keuze
+            waarschuwingen = []
+            if extem_ct is None:
+                waarschuwingen.append("- EXTEM CT is niet ingevuld.")
+            if fibtem_a5 is None:
+                waarschuwingen.append("- FIBTEM A5 is niet ingevuld.")
+            if extem_a5 is None:
+                waarschuwingen.append("- EXTEM A5 is niet ingevuld.")
+            if waarschuwingen:
+                st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
+
+            # Sla inputs tijdelijk op
+            st.session_state.extem_ct = extem_ct
+            st.session_state.fibtem_a5 = fibtem_a5
+            st.session_state.extem_a5 = extem_a5
+            st.session_state.weight_kg = weight_kg
+            st.session_state.product_keuze = product_keuze
 
             st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
                 extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze
             )
             st.session_state.show_advies = True
-
 
 # =======================
 # Pagina 2 – Advies
