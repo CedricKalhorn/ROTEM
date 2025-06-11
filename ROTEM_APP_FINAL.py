@@ -97,7 +97,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
-            trombocyten_eenheid = 1
+            trombocyten= 1
             if not omniplasma_used and keuze == "Omniplasma":
                 dosis_min = gewicht * 10
                 dosis_max = gewicht * 15
