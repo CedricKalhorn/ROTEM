@@ -146,7 +146,7 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # =======================
 col_left, col_right = st.columns([6, 1])
 with col_left:
-    st.markdown("## ROTEM Advies Tool")
+    st.markdown("## ROTEM-Tool")
 
 # =======================
 # Pagina 0 – Live viewer openen
