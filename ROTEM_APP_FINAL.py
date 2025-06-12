@@ -78,6 +78,7 @@ label {
 def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib):
     gewicht = weight_kg
     omniplasma = 0
+    omniplasma_zak = 0
     trombocyten = 0
     fibrinogeen_g = 0
     fibrinogeen_ml = 0.0
