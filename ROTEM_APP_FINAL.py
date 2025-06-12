@@ -175,10 +175,10 @@ elif not st.session_state.show_advies:
     product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
-        weight_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
-        fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
-        extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
-        extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
+    weight_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
+    fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
+    extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
+    extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
     
     
     st.caption("Dubbel klik indien nodig om advies te genereren.")
