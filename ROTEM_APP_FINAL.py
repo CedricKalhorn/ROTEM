@@ -3,7 +3,7 @@ import streamlit as st
 # =======================
 # Styling
 # =======================
-st.set_page_config(page_title="ROTEM Advies Tool", layout="wide")
+st.set_page_config(page_title="ROTEM-tool", layout="wide")
 st.markdown("""
 <style>
 body, .main, [data-testid="stAppViewContainer"] {
@@ -152,11 +152,10 @@ with col_left:
 # Pagina 0 – Live viewer openen
 # =======================
 if not st.session_state.liveviewer_opened:
-    st.markdown("## Open de Live Viewer")
-    st.warning("⚠️ Open eerst de Live Viewer zodat je toegang hebt tot de ROTEM-waarden.")
+    st.warning("⚠️ Open de live viewer.")
 
     st.caption("Dubbel klik indien nodig om door te gaan naar invoerscherm.")
-    if st.button("Live viewer is geopend, ga verder naar invoerscherm ➡️"):
+    if st.button("Klik om door te gaan ➡️"):
         st.session_state.liveviewer_opened = True
 
 # =======================
