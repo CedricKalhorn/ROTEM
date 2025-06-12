@@ -138,8 +138,6 @@ if "liveviewer_opened" not in st.session_state:
 # =======================
 # Disclaimer
 # =======================
-st.markdown("### ⚠️ Disclaimer")
-st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
 
 # =======================
 # HEADER
@@ -147,6 +145,9 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM-Tool")
+    
+st.markdown("### ⚠️ Disclaimer")
+st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
 
 # =======================
 # Pagina 0 – Live viewer openen
@@ -165,10 +166,13 @@ if not st.session_state.liveviewer_opened:
 elif not st.session_state.show_advies:
         
     _ = st.radio(
-        "Gaat het om een patiënt binnen het massalbloedverlies protocol:",
+        "Betreft het een patiënt met een levensbedreigende bloeding:",
         ["Ja", "Nee"],
         index=0
     )
+    
+    product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
+    product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
     col1, col2 = st.columns(2)
@@ -179,9 +183,7 @@ elif not st.session_state.show_advies:
         fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
     
-    product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
-    product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
-
+    
     st.caption("Dubbel klik indien nodig om advies te genereren.")
 
     if st.button("Genereer advies ➡️"):
@@ -215,7 +217,6 @@ elif not st.session_state.show_advies:
 # Pagina 2 – Advies
 # =======================
 else:
-    st.success("✅ Advies succesvol gegenereerd op basis van ingevoerde gegevens.")
     for product, waarde in st.session_state.advies_resultaat.items():
         st.markdown(f"### {product}")
         st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
