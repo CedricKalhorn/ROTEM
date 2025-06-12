@@ -155,7 +155,7 @@ st.info("De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behan
 # Pagina 0 – Live viewer openen
 # =======================
 if not st.session_state.liveviewer_opened:
-    st.markdown("Open de live viewer")
+    st.markdown("### Open de live viewer")
     st.warning("⚠️ Wanneer niet geopend, niet door gaan.")
 
     st.caption("Dubbel klik indien nodig om door te gaan naar invoerscherm.")
