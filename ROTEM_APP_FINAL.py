@@ -172,8 +172,7 @@ elif not st.session_state.show_advies:
     _ = st.radio(
         "Gaat het om een patiënt binnen het massalbloedverlies protocol:",
         ["Ja", "Nee"],
-        index=0,
-        disabled=True  # maakt ‘m grijs en niet-klikbaar
+        index=0
     )
 
     st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
