@@ -113,7 +113,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     if keuze == "Cofact":
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
-        advies["Omniplasma"] = f"{Omniplasma} ml" if omniplasma_used else "Niet nodig in de behandeling"
+        advies["Omniplasma"] = f"{omniplasma} ml" if omniplasma_used else "Niet nodig in de behandeling"
         
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
 
