@@ -112,16 +112,16 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     advies = {}
     if keuze == "Cofact":
-        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
+        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen toediening vereist"
     elif keuze == "Omniplasma":
-        advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_used else "Niet nodig in de behandeling"
+        advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_used else "Geen toediening vereist"
         
-    advies["Trombocyten"] = f"{trombocyten} eenheid (330 ml)" if trombocyten > 0 else "Niet nodig in de behandeling"
+    advies["Trombocyten"] = f"{trombocyten} eenheid (330 ml)" if trombocyten > 0 else "Geen toediening vereist"
 
     if keuze_fib == "Fibrinogeen dosis":
-        advies["Fibrinogeen dosis"]  = f"{fibrinogeen_g} g" if fibrinogeen_g > 0 else "Niet nodig in de behandeling"
+        advies["Fibrinogeen dosis"]  = f"{fibrinogeen_g} g" if fibrinogeen_g > 0 else "Geen toediening vereist"
     elif keuze_fib == "Fibrinogeen concentraat":
-        advies["Fibrinogeen concentraat"] = f"{fibrinogeen_ml} ml" if fibrinogeen_g > 0 else "Niet nodig in de behandeling"
+        advies["Fibrinogeen concentraat"] = f"{fibrinogeen_ml} ml" if fibrinogeen_g > 0 else "Geen toediening vereist"
 
     return advies
 
