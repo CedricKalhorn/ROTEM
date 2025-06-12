@@ -166,6 +166,14 @@ if not st.session_state.liveviewer_opened:
 # =======================
 # Pagina 1 – Invoer
 # =======================
+
+_ = st.radio(
+    "Gaat het om een patiënt binnen het massalbloedverlies protocol:",
+    ["Ja", "Nee"],
+    index=0,
+    disabled=True  # maakt ‘m grijs en niet-klikbaar
+)
+
 elif not st.session_state.show_advies:
     st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
     col1, col2 = st.columns(2)
@@ -175,7 +183,7 @@ elif not st.session_state.show_advies:
     with col2:
         fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
         extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
-
+    
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
     product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
