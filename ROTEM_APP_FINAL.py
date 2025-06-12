@@ -77,8 +77,7 @@ label {
 # =======================
 def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib):
     gewicht = weight_kg
-    omniplasma_min = 0
-    omniplasma_max = 0
+    omniplasma = 0
     trombocyten = 0
     fibrinogeen_g = 0
     fibrinogeen_ml = 0.0
@@ -87,23 +86,19 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
-            dosis_min = gewicht * 10
-            dosis_max = gewicht * 15
+            dosis = gewicht * 12.5
             if keuze == "Cofact":
                 cofact_dosis = round(0.4 * gewicht, 1)
             elif keuze == "Omniplasma":
-                omniplasma_min = ((dosis_min + 199) // 200) * 200
-                omniplasma_max = ((dosis_max + 199) // 200) * 200
+                omniplasma = ((dosis + 199) // 200) * 200
                 omniplasma_used = True
 
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
             trombocyten = 1
             if not omniplasma_used and keuze == "Omniplasma":
-                dosis_min = gewicht * 10
-                dosis_max = gewicht * 15
-                omniplasma_min = ((dosis_min + 199) // 200) * 200
-                omniplasma_max = ((dosis_max + 199) // 200) * 200
+                dosis = gewicht * 12.5
+                omniplasma = ((dosis + 199) // 200) * 200
                 omniplasma_used = True
 
  # Fibrinogeen-berekening
@@ -118,7 +113,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     if keuze == "Cofact":
         advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Niet nodig in de behandeling"
     elif keuze == "Omniplasma":
-        advies["Omniplasma"] = f"{omniplasma_min}–{omniplasma_max} ml" if omniplasma_used else "Niet nodig in de behandeling"
+        advies["Omniplasma"] = f"{Omniplasma} ml" if omniplasma_used else "Niet nodig in de behandeling"
         
     advies["Trombocyten"] = f"{trombocyten} eenheid" if trombocyten > 0 else "Niet nodig in de behandeling"
 
