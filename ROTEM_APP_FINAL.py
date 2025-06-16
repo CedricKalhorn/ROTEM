@@ -75,7 +75,7 @@ label {
 # =======================
 # ROTEM functie
 # =======================
-def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib):
+def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib, levensbedreigend):
     gewicht = weight_kg
     omniplasma = 0
     omniplasma_zak = 0
@@ -91,8 +91,11 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
             if keuze == "Cofact":
                 cofact_dosis = round(0.4 * gewicht, 1)
             elif keuze == "Omniplasma":
-                omniplasma = int((dosis + 199) // 200) * 200
-                omniplasma_zak = int(omniplasma / 200)
+                if levensbedreigend == "Ja":
+                    omniplasma = int((dosis + 199) // 200) * 200
+                    omniplasma_zak = int(omniplasma / 200)
+                else: 
+                    omniplasma = int(round(dosis / 200) * 200)
                 omniplasma_used = True
 
     if extem_a5 is not None and fibtem_a5 is not None:
@@ -100,8 +103,11 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
             trombocyten = 1
             if not omniplasma_used and keuze == "Omniplasma":
                 dosis = gewicht * 12.5
-                omniplasma = int((dosis + 199) // 200) * 200
-                omniplasma_zak = int(omniplasma / 200)
+                if levensbedreigend == "Ja":
+                    omniplasma = int((dosis + 199) // 200) * 200
+                    omniplasma_zak = int(omniplasma / 200)
+                else: 
+                    omniplasma = int(round(dosis / 200) * 200)
                 omniplasma_used = True
 
  # Fibrinogeen-berekening
@@ -167,12 +173,7 @@ if not st.session_state.liveviewer_opened:
 
 elif not st.session_state.show_advies:
         
-    _ = st.radio(
-        "Betreft het een patiënt met een levensbedreigende bloeding:",
-        ["Ja", "Nee"],
-        index=0
-    )
-    
+    levensbedreigend = st.radio("Betreft het een patiënt met een levensbedreigende bloeding:", ["Ja", "Nee"], horizontal = True)
     product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
     product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
@@ -206,9 +207,11 @@ elif not st.session_state.show_advies:
         st.session_state.extem_a5 = extem_a5
         st.session_state.weight_kg = weight_kg
         st.session_state.product_keuze = product_keuze
+        st.session_state.product_keuze_fib = product_keuze_fib
+        st.session_state.product_levensbedreigend = levensbedreigend
   
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
-            extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze, product_keuze_fib
+            extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze, product_keuze_fib, levensbedreigend
         )
         st.session_state.show_advies = True
 
