@@ -219,49 +219,58 @@ elif not st.session_state.show_advies:
 # Pagina 2 – Advies
 # =======================
 else:
-    for product, waarde in st.session_state.advies_resultaat.items():
-        st.markdown(f"### {product}")
-        st.markdown(f"<div class='advies-box'>{waarde}</div>", unsafe_allow_html=True)
+    # 1) Bouw eerst je overzichtszin
+    adviezen = st.session_state.advies_resultaat
+    # Maak een list van "Product: waarde"
+    overzicht_items = [f"{prod}: {val}" for prod, val in adviezen.items()]
+    overzicht_zin = " — ".join(overzicht_items)
 
-        # Toelichting per bloedproduct
-        if product == "Omniplasma" and "ml" in waarde:
-            st.markdown(f"""
-            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
-            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
-                <li>EXTEM CT &gt; 80 sec (gegeven waarde: {st.session_state.extem_ct} sec)</li>
-                <li>FIBTEM A5 &gt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
-                <li>Gewicht: {st.session_state.weight_kg} kg</li>
-            </ul>
-            """, unsafe_allow_html=True)
+    # Toon de complete zin
+    st.markdown(f"**Advies:** {overzicht_zin}")
 
-        elif product == "Cofact" and "ml" in waarde:
-            st.markdown(f"""
-            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
-            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
-                <li>EXTEM CT &gt; 80 sec (gegeven waarde: {st.session_state.extem_ct} sec)</li>
-                <li>FIBTEM A5 &gt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
-                <li>Gewicht: {st.session_state.weight_kg} kg</li>
-            </ul>
-            """, unsafe_allow_html=True)  
-            
-        elif product == "Trombocyten" and "1 eenheid" in waarde:
-            st.markdown(f"""
-            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
-            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
-                <li>EXTEM A5 tussen 30–44 mm of &lt; 30 mm (gegeven waarde: {st.session_state.extem_a5} mm)</li>
-                <li>FIBTEM A5 &gt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
-                <li>Gewicht: {st.session_state.weight_kg} kg</li>
-            </ul>
-            """, unsafe_allow_html=True)
-        elif product.startswith("Fibrinogeen") and waarde != "Niet nodig":
-            st.markdown(f"""
-            <span style='font-size: 0.85em; color: gray;'>ℹ️ Gebaseerd op:</span>
-            <ul style='font-size: 0.85em; color: gray; margin-top: 0px;'>
-                <li>FIBTEM A5 &lt; 9 mm (gegeven waarde: {st.session_state.fibtem_a5} mm)</li>
-                <li>EXTEM A5 &lt; 35 mm (gegeven waarde: {st.session_state.extem_a5} mm)</li>
-                <li>Gewicht: {st.session_state.weight_kg} kg</li>
-            </ul>
-            """, unsafe_allow_html=True)
+    # 2) Toon per product de toelichting
+    st.markdown("### Toelichting per bloedproduct")
+    for product, waarde in adviezen.items():
+        # Alleen uitleg als er daadwerkelijk iets toegediend wordt
+        if waarde != "Geen toediening vereist" and waarde != "Niet nodig in de behandeling":
+            st.markdown(f"**{product}**: {waarde}")
+            # Nu je logica uit jouw bestaande snippets
+            if product == "Omniplasma":
+                st.markdown(f"""
+                <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
+                  <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
+                  <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
+                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                  <li>Levensbedreigend: {st.session_state.product_levensbedreigend}</li>
+                </ul>
+                """, unsafe_allow_html=True)
+
+            elif product == "Cofact":
+                st.markdown(f"""
+                <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
+                  <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
+                  <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
+                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                </ul>
+                """, unsafe_allow_html=True)
+
+            elif product == "Trombocyten":
+                st.markdown(f"""
+                <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
+                  <li>EXTEM A5 tussen 30–40 mm (waarde: {st.session_state.extem_a5} mm)</li>
+                  <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
+                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                </ul>
+                """, unsafe_allow_html=True)
+
+            elif product.startswith("Fibrinogeen"):
+                st.markdown(f"""
+                <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
+                  <li>FIBTEM A5 < 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
+                  <li>EXTEM A5 < 35 mm (waarde: {st.session_state.extem_a5} mm)</li>
+                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                </ul>
+                """, unsafe_allow_html=True)
 
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
