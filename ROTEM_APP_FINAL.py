@@ -148,7 +148,7 @@ col_left, col_right = st.columns([6, 1])
 with col_left:
     st.markdown("## ROTEM-Tool")
     
-st.info("###⚠️ Disclaimer:### De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
+st.info("⚠️ Disclaimer: De arts blijft altijd eindverantwoordelijk voor het uiteindelijke behandelbeleid. Deze tool dient ter ondersteuning, niet als vervanging van klinisch oordeel.")
 
 # =======================
 # Pagina 0 – Live viewer openen
