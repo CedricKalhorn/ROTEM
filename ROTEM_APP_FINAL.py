@@ -96,6 +96,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                     omniplasma_zak = int(omniplasma / 200)
                 else: 
                     omniplasma = int(round(dosis / 200) * 200)
+                    omniplasma_zak = int(omniplasma / 200)
                 omniplasma_used = True
 
     if extem_a5 is not None and fibtem_a5 is not None:
@@ -108,6 +109,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                     omniplasma_zak = int(omniplasma / 200)
                 else: 
                     omniplasma = int(round(dosis / 200) * 200)
+                    omniplasma_zak = int(omniplasma / 200)
                 omniplasma_used = True
 
  # Fibrinogeen-berekening
