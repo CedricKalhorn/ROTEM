@@ -206,7 +206,7 @@ elif not st.session_state.show_advies:
         st.session_state.extem_a5 = extem_a5
         st.session_state.weight_kg = weight_kg
         st.session_state.product_keuze = product_keuze
-           
+  
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze, product_keuze_fib
         )
