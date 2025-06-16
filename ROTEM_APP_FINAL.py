@@ -63,6 +63,15 @@ label {
     color: #002B45;
     font-weight: 600;
 }
+.advies-overzicht {
+  font-size: 24px;
+  font-weight: 700;
+  background-color: #e6f4f9;
+  padding: 12px 16px;
+  border-left: 6px solid #00B5E2;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
 [data-testid="stAlert"] {
     background-color: #e6f4f9 !important;
     color: #002B45 !important;
@@ -219,15 +228,15 @@ elif not st.session_state.show_advies:
 # Pagina 2 – Advies
 # =======================
 else:
-    # 1) Bouw eerst je overzichtszin
     adviezen = st.session_state.advies_resultaat
-    # Maak een list van "Product: waarde"
     overzicht_items = [f"{prod}: {val}" for prod, val in adviezen.items()]
-    overzicht_zin = " — ".join(overzicht_items)
+    overzicht_zin   = " — ".join(overzicht_items)
 
-    # Toon de complete zin
-    st.markdown(f"**Advies:** {overzicht_zin}")
-
+    # Grote, opvallende overzichtszin
+    st.markdown(
+        f"<div class='advies-overzicht'>Advies: {overzicht_zin}</div>",
+        unsafe_allow_html=True
+    )
     # 2) Toon per product de toelichting
     st.markdown("### Toelichting per bloedproduct")
     for product, waarde in adviezen.items():
