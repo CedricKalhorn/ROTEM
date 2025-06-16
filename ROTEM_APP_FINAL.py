@@ -174,10 +174,10 @@ if not st.session_state.liveviewer_opened:
 elif not st.session_state.show_advies:
         
     levensbedreigend = st.radio("Betreft het een patiënt met een levensbedreigende bloeding:", ["Ja", "Nee"], horizontal = True)
-    product_keuze = st.radio("Geef hieronder welk bloedproduct uw voorkeur heeft:", ["Omniplasma", "Cofact"], horizontal=True)
-    product_keuze_fib = st.radio("Geef hieronder aan of u liever fibrinogeen dosis in gram of fibrinogeen concentraat in ml wilt toe dienen:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
+    product_keuze = st.radio("Maak een keuze:", ["Omniplasma", "Cofact"], horizontal=True)
+    product_keuze_fib = st.radio("Maake een keuze:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
-    st.markdown("Geef hieronder het gewicht van de patiënt en de ROTEM-waarden:")
+    st.markdown("Vul hieronder de patiëntgegevens in:")
     weight_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
     fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
     extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
