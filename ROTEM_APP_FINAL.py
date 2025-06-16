@@ -155,7 +155,7 @@ st.info("⚠️ Disclaimer: De arts blijft altijd eindverantwoordelijk voor het 
 # =======================
 if not st.session_state.liveviewer_opened:
 
-    st.warning("⚠️ Wanneer niet geopend, niet door gaan.")
+    st.warning("Open de live viewer.")
 
     st.caption("Dubbel klik indien nodig om door te gaan naar invoerscherm.")
     if st.button("Klik om door te gaan ➡️"):
