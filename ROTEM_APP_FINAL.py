@@ -64,7 +64,7 @@ label {
     font-weight: 600;
 }
 .advies-overzicht {
-  font-size: 24px;
+  font-size: 35px;
   font-weight: 700;
   background-color: #e6f4f9;
   padding: 12px 16px;
