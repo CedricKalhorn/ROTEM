@@ -96,8 +96,8 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
     omniplasma_used = False
     
     IE_per_flesje = 500     
-    Flesje_ml = 20     
-    IE_per_ml = IE_per_flesje/ Flesje_ml  
+    flesje_ml = 20     
+    IE_per_ml = IE_per_flesje/ flesje_ml  
     mg_per_ml = 10     
 
     cofact_ml = 0.0
