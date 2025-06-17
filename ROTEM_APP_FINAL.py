@@ -99,6 +99,18 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
             dosis = gewicht * 12.5
             if keuze == "Cofact":
                 cofact_dosis = round(0.4 * gewicht, 1)
+                ml = cofact_dosis
+                ie = int(ml * 1400)          # 1400 IE per ml
+                mg = round(ml * 10, 1)       # 10 mg per ml
+                flesjes = math.ceil(ml)      # 1 flesje = 1 ml, altijd omhoog afronden
+        
+                if ml > 0:
+                    advies["Cofact"] = (
+                        f"{ml} ml = {ie} IE = {mg} mg "
+                        f"— {flesjes} flesje{'s' if flesjes>1 else ''}"
+                    )
+                else:
+                    advies["Cofact"] = "Geen toediening vereist"
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
@@ -245,7 +257,7 @@ else:
         """, unsafe_allow_html=True
     )
     # 2) Toon per product de toelichting
-    st.markdown("### Toelichting per bloedproduct")
+    st.markdown("### Toelichting per bloedproduct:")
     for product, waarde in adviezen.items():
         # Alleen uitleg als er daadwerkelijk iets toegediend wordt
         if waarde != "Geen toediening vereist" and waarde != "Niet nodig in de behandeling":
