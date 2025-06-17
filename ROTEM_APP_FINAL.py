@@ -103,14 +103,6 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                 ie = int(ml * 1400)          # 1400 IE per ml
                 mg = round(ml * 10, 1)       # 10 mg per ml
                 flesjes = math.ceil(ml)      # 1 flesje = 1 ml, altijd omhoog afronden
-        
-                if ml > 0:
-                    advies["Cofact"] = (
-                        f"{ml} ml = {ie} IE = {mg} mg "
-                        f"— {flesjes} flesje{'s' if flesjes>1 else ''}"
-                    )
-                else:
-                    advies["Cofact"] = "Geen toediening vereist"
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
@@ -141,7 +133,10 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     advies = {}
     if keuze == "Cofact":
-        advies["Cofact"] = f"{cofact_dosis} ml" if cofact_dosis > 0 else "Geen toediening vereist"
+        if ml > 0:
+            advies["Cofact"] = (f"{ml} ml = {ie} IE = {mg} mg " f"— {flesjes} flesje{'s' if flesjes>1 else ''}")
+        else:
+            advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_used else "Geen toediening vereist"
         
