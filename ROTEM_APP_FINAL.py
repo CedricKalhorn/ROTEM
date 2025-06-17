@@ -237,8 +237,8 @@ else:
     st.markdown(
         f"""
         <div class='advies-overzicht'>
-            <span style="font-size: 29px;">Advies:</span>
-            <ul style="margin-top: 12px; font-size: 29px; font-weight: 600; color: #002B45;">
+            <span style="font-size: 35px;">Advies:</span>
+            <ul style="margin-top: 12px; font-size: 35px; font-weight: 600; color: #002B45;">
                 {bullet_items}
             </ul>
         </div>
@@ -257,7 +257,7 @@ else:
                   <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
                   <li>Gewicht: {st.session_state.weight_kg} kg</li>
-                  <li>Levensbedreigend: {st.session_state.product_levensbedreigend}</li>
+                  <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
 
@@ -267,7 +267,7 @@ else:
                   <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
                   <li>Gewicht: {st.session_state.weight_kg} kg</li>
-                  <li>Levensbedreigend: {st.session_state.product_levensbedreigend}</li>
+                  <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
 
@@ -277,7 +277,7 @@ else:
                   <li>EXTEM A5 tussen 30–40 mm (waarde: {st.session_state.extem_a5} mm)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
                   <li>Gewicht: {st.session_state.weight_kg} kg</li>
-                  <li>Levensbedreigend: {st.session_state.product_levensbedreigend}</li>
+                  <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
 
@@ -287,7 +287,7 @@ else:
                   <li>FIBTEM A5 < 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
                   <li>EXTEM A5 < 35 mm (waarde: {st.session_state.extem_a5} mm)</li>
                   <li>Gewicht: {st.session_state.weight_kg} kg</li>
-                  <li>Levensbedreigend: {st.session_state.product_levensbedreigend}</li>
+                  <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
 
