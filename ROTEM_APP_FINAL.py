@@ -230,8 +230,7 @@ elif not st.session_state.show_advies:
 else:
     adviezen = st.session_state.advies_resultaat
     overzicht_items = [f"{prod}: {val}" for prod, val in adviezen.items()]
-    overzicht_zin   = " — ".join(overzicht_items)
-
+    
     # Grote, opvallende overzichtszin
     # Bulletpoint-stijl overzicht met grotere tekst
     bullet_items = "".join([f"<li>{prod}: {val}</li>" for prod, val in adviezen.items()])
