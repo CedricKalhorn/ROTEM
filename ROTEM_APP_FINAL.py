@@ -59,7 +59,7 @@ label {
     padding: 15px;
     border-radius: 10px;
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 29px;
     color: #002B45;
     font-weight: 600;
 }
