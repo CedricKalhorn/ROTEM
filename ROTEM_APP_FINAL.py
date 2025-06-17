@@ -102,7 +102,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     cofact_ml     = 0.0
     cofact_ie     = 0
     cofact_mg     = 0.0
-    cofact_vials  = 0
+    cofact_flesjes  = 0
     
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
@@ -144,7 +144,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
 
     advies = {}
     if keuze == "Cofact":
-        if ml > 0:
+        if cofact_ml > 0:
             advies["Cofact"] = (f"{cofact_ml} ml = {cofact_ie} IE = {cofact_mg} mg " f"— {cofact_flesjes} flesje{'s' if cofact_flesjes>1 else ''}")
         else:
             advies["Cofact"] = "Geen toediening vereist"
