@@ -111,9 +111,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                 # dosis in ml volgens jullie protocol
                 cofact_ml = round(0.4 * gewicht, 1)
                 # omzettingen
-                cofact_ie    = int(round(cofact_ml * IE_PER_ML))
-                cofact_mg    = round(cofact_ml * MG_PER_ML, 1)
-                cofact_flesjes = math.ceil((cofact_ie / IE_PER_VIAL))
+                cofact_ie    = int(round(cofact_ml * IE_per_ml))
+                cofact_mg    = round(cofact_ml * mg_per_ml, 1)
+                cofact_flesjes = math.ceil((cofact_ie / IE_per_flesje))
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
