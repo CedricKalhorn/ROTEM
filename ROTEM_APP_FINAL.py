@@ -145,7 +145,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     advies = {}
     if keuze == "Cofact":
         if cofact_ml > 0:
-            advies["Cofact"] = (f"{cofact_ml} ml = {cofact_ie} IE = {cofact_mg} mg " f"— {cofact_flesjes} flesje{'s' if cofact_flesjes>1 else ''}")
+            advies["Cofact"] = (f"— {cofact_flesjes} flesje{'s' if cofact_flesjes>1 else ''}" f"({cofact_ml} ml = {cofact_ie} IE = {cofact_mg} mg )" )
         else:
             advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
