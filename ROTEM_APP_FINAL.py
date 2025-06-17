@@ -93,16 +93,27 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     fibrinogeen_ml = 0.0
     cofact_dosis = 0.0
     omniplasma_used = False
+    # cofact verpakking
+    IE_PER_VIAL     = 500     # 500 IE per flacon
+    VIAL_SOLVENT_ML = 20      # ml na reconstitutie
+    IE_PER_ML       = IE_PER_VIAL / VIAL_SOLVENT_ML  # 25 IE/ml
+    MG_PER_ML       = 10      # 10 mg per ml (volgens 1400 IE = 10 mg → 1 ml = 1400 IE = 10 mg)
 
+    cofact_ml     = 0.0
+    cofact_ie     = 0
+    cofact_mg     = 0.0
+    cofact_vials  = 0
+    
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 12.5
             if keuze == "Cofact":
-                cofact_dosis = round(0.4 * gewicht, 1)
-                ml = cofact_dosis
-                ie = int(ml * 1400)          # 1400 IE per ml
-                mg = round(ml * 10, 1)       # 10 mg per ml
-                flesjes = math.ceil(ml)      # 1 flesje = 1 ml, altijd omhoog afronden
+                # dosis in ml volgens jullie protocol
+                cofact_ml = round(0.4 * gewicht, 1)
+                # omzettingen
+                cofact_ie    = int(round(cofact_ml * IE_PER_ML))
+                cofact_mg    = round(cofact_ml * MG_PER_ML, 1)
+                cofact_flesjes = math.ceil((cofact_ie / IE_PER_VIAL))
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
@@ -134,7 +145,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     advies = {}
     if keuze == "Cofact":
         if ml > 0:
-            advies["Cofact"] = (f"{ml} ml = {ie} IE = {mg} mg " f"— {flesjes} flesje{'s' if flesjes>1 else ''}")
+            advies["Cofact"] = (f"{cofact_ml} ml = {cofact_ie} IE = {cofact_mg} mg " f"— {cofact_flesjes} flesje{'s' if cofact_flesjes>1 else ''}")
         else:
             advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
