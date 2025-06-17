@@ -233,9 +233,17 @@ else:
     overzicht_zin   = " — ".join(overzicht_items)
 
     # Grote, opvallende overzichtszin
+    # Bulletpoint-stijl overzicht met grotere tekst
+    bullet_items = "".join([f"<li>{prod}: {val}</li>" for prod, val in adviezen.items()])
     st.markdown(
-        f"<div class='advies-overzicht'>Advies: {overzicht_zin}</div>",
-        unsafe_allow_html=True
+        f"""
+        <div class='advies-overzicht'>
+            <span style="font-size: 22px;">Advies:</span>
+            <ul style="margin-top: 12px; font-size: 20px; font-weight: 600; color: #002B45;">
+                {bullet_items}
+            </ul>
+        </div>
+        """, unsafe_allow_html=True
     )
     # 2) Toon per product de toelichting
     st.markdown("### Toelichting per bloedproduct")
