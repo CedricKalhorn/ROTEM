@@ -85,8 +85,8 @@ label {
 # ROTEM-functie
 # =======================
 
-def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib, levensbedreigend):
-    gewicht = weight_kg
+def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, gewicht_kg, keuze, keuze_fib, levensbedreigend):
+    gewicht = gewicht_kg
     omniplasma = 0
     omniplasma_zak = 0
     trombocyten = 0
@@ -197,7 +197,7 @@ elif not st.session_state.show_advies:
     product_keuze_fib = st.radio("Maake een keuze:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.markdown("Vul hieronder de patiëntgegevens in:")
-    weight_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
+    gewicht_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
     fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
     extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
     extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
@@ -207,7 +207,7 @@ elif not st.session_state.show_advies:
 
     if st.button("Genereer advies ➡️"):
         waarschuwingen = []
-        if weight_kg is None:
+        if gewicht_kg is None:
                 waarschuwingen.append("- ❌ Gewicht is niet ingevuld! Vul een geschat of exact gewicht in.")
         if fibtem_a5 is None:
                 waarschuwingen.append("- ❌ FIBTEM A5 is niet ingevuld! Vul de FIBTEM A5 in.")
@@ -223,13 +223,13 @@ elif not st.session_state.show_advies:
         st.session_state.extem_ct = extem_ct
         st.session_state.fibtem_a5 = fibtem_a5
         st.session_state.extem_a5 = extem_a5
-        st.session_state.weight_kg = weight_kg
+        st.session_state.gewicht_kg = gewicht_kg
         st.session_state.product_keuze = product_keuze
         st.session_state.product_keuze_fib = product_keuze_fib
         st.session_state.product_levensbedreigend = levensbedreigend
   
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
-            extem_ct, fibtem_a5, extem_a5, weight_kg, product_keuze, product_keuze_fib, levensbedreigend
+            extem_ct, fibtem_a5, extem_a5, gewicht_kg, product_keuze, product_keuze_fib, levensbedreigend
         )
         st.session_state.show_advies = True
 
@@ -251,19 +251,17 @@ else:
         </div>
         """, unsafe_allow_html=True
     )
-    # 2) Toon per product de toelichting
+
     st.markdown("### Toelichting per bloedproduct:")
     for product, waarde in adviezen.items():
-        # Alleen uitleg als er daadwerkelijk iets toegediend wordt
         if waarde != "Geen toediening vereist" and waarde != "Niet nodig in de behandeling":
             st.markdown(f"**{product}**: {waarde}")
-            # Nu je logica uit jouw bestaande snippets
             if product == "Omniplasma":
                 st.markdown(f"""
                 <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
                   <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
-                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                  <li>Gewicht: {st.session_state.gewicht_kg} kg</li>
                   <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
@@ -273,7 +271,7 @@ else:
                 <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
                   <li>EXTEM CT > 80 sec (waarde: {st.session_state.extem_ct} sec)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
-                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                  <li>Gewicht: {st.session_state.gewicht_kg} kg</li>
                   <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
@@ -283,7 +281,7 @@ else:
                 <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
                   <li>EXTEM A5 tussen 30–40 mm (waarde: {st.session_state.extem_a5} mm)</li>
                   <li>FIBTEM A5 > 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
-                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                  <li>Gewicht: {st.session_state.gewicht_kg} kg</li>
                   <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
@@ -293,7 +291,7 @@ else:
                 <ul style="margin-top:4px; margin-bottom:12px; color:gray; font-size:0.85em;">
                   <li>FIBTEM A5 < 9 mm (waarde: {st.session_state.fibtem_a5} mm)</li>
                   <li>EXTEM A5 < 35 mm (waarde: {st.session_state.extem_a5} mm)</li>
-                  <li>Gewicht: {st.session_state.weight_kg} kg</li>
+                  <li>Gewicht: {st.session_state.gewicht_kg} kg</li>
                   <li>Levensbedreigende bloeding: {st.session_state.product_levensbedreigend}</li>
                 </ul>
                 """, unsafe_allow_html=True)
