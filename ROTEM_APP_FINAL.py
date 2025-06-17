@@ -93,7 +93,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
     fibrinogeen_g = 0
     fibrinogeen_ml = 0.0
     cofact_dosis = 0.0
-    omniplasma_used = False
+    omniplasma_gebruikt = False
     
     IE_per_flesje = 500     
     flesje_ml = 20     
@@ -119,19 +119,19 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
                 else: 
                     omniplasma = int(round(dosis / 200) * 200)
                 omniplasma_zak = int(omniplasma / 200)
-                omniplasma_used = True
+                omniplasma_gebruikt = True
 
     if extem_a5 is not None and fibtem_a5 is not None:
         if 30 <= extem_a5 <= 40 and fibtem_a5 > 9:
             trombocyten = 1
-            if not omniplasma_used and keuze == "Omniplasma":
+            if not omniplasma_gebruikt and keuze == "Omniplasma":
                 dosis = gewicht * 12.5
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
                 else: 
                     omniplasma = int(round(dosis / 200) * 200)
                 omniplasma_zak = int(omniplasma / 200)
-                omniplasma_used = True
+                omniplasma_gebruikt = True
 
     if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
         delta = 12 - fibtem_a5
@@ -145,7 +145,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
         else:
             advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
-        advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_used else "Geen toediening vereist"
+        advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_gebruikt else "Geen toediening vereist"
         
     advies["Trombocyten"] = f"{trombocyten} eenheid (330 ml)" if trombocyten > 0 else "Geen toediening vereist"
 
@@ -159,12 +159,12 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
 # =======================
 # State defenities
 # =======================
-if "show_advies" not in st.session_state:
-    st.session_state.show_advies = False
+if "advies" not in st.session_state:
+    st.session_state.advies = False
 if "advies_resultaat" not in st.session_state:
     st.session_state.advies_resultaat = {}
-if "liveviewer_opened" not in st.session_state:
-    st.session_state.liveviewer_opened = False
+if "liveviewer_geopend" not in st.session_state:
+    st.session_state.liveviewer_geopend = False
     
 # =======================
 # Koptekst
@@ -178,19 +178,19 @@ st.info("**⚠️ Disclaimer:** De arts blijft altijd eindverantwoordelijk voor 
 # =======================
 # Pagina 0 – Live viewer openen
 # =======================
-if not st.session_state.liveviewer_opened:
+if not st.session_state.liveviewer_geopend:
 
     st.warning("Open de live viewer.")
 
     st.caption("Dubbel klik indien nodig om door te gaan naar invoerscherm.")
     if st.button("Klik om door te gaan ➡️"):
-        st.session_state.liveviewer_opened = True
+        st.session_state.liveviewer_geopend = True
 
 # =======================
 # Pagina 1 – Invoerscherm
 # =======================
 
-elif not st.session_state.show_advies:
+elif not st.session_state.advies:
         
     levensbedreigend = st.radio("Betreft het een patiënt met een levensbedreigende bloeding:", ["Ja", "Nee"], horizontal = True)
     product_keuze = st.radio("Maak een keuze:", ["Omniplasma", "Cofact"], horizontal=True)
@@ -231,7 +231,7 @@ elif not st.session_state.show_advies:
         st.session_state.advies_resultaat = stap_2_na_ROTEM_geleide_stollingscorrectie(
             extem_ct, fibtem_a5, extem_a5, gewicht_kg, product_keuze, product_keuze_fib, levensbedreigend
         )
-        st.session_state.show_advies = True
+        st.session_state.advies = True
 
 # =======================
 # Pagina 2 – Adviesscherm
@@ -299,7 +299,7 @@ else:
 
     st.caption("Dubbel klik indien nodig om terug te gaan naar invoerscherm")
     if st.button("⬅️ Terug naar invoerscherm"):
-        st.session_state.show_advies = False
+        st.session_state.advies = False
 
 # =======================
 # Voet tekst
