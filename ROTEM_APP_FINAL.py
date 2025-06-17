@@ -1,7 +1,7 @@
 import streamlit as st
 import math
 # =======================
-# Styling
+# Stijl
 # =======================
 st.set_page_config(page_title="ROTEM-tool", layout="wide")
 st.markdown("""
@@ -82,8 +82,9 @@ label {
 """, unsafe_allow_html=True)
 
 # =======================
-# ROTEM functie
+# ROTEM-functie
 # =======================
+
 def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, weight_kg, keuze, keuze_fib, levensbedreigend):
     gewicht = weight_kg
     omniplasma = 0
@@ -93,26 +94,24 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     fibrinogeen_ml = 0.0
     cofact_dosis = 0.0
     omniplasma_used = False
-    # cofact verpakking
-    IE_per_flesje     = 500     # 500 IE per flacon
-    Flesje_ml = 20      # ml na reconstitutie
-    IE_per_ml       = IE_per_flesje/ Flesje_ml  # 25 IE/ml
-    mg_per_ml       = 10      # 10 mg per ml (volgens 1400 IE = 10 mg → 1 ml = 1400 IE = 10 mg)
+    
+    IE_per_flesje = 500     
+    Flesje_ml = 20     
+    IE_per_ml = IE_per_flesje/ Flesje_ml  
+    mg_per_ml = 10     
 
-    cofact_ml     = 0.0
-    cofact_ie     = 0
-    cofact_mg     = 0.0
-    cofact_flesjes  = 0
+    cofact_ml = 0.0
+    cofact_ie = 0
+    cofact_mg = 0.0
+    cofact_flesjes = 0
     
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 12.5
             if keuze == "Cofact":
-                # dosis in ml volgens jullie protocol
                 cofact_ml = round(0.4 * gewicht, 1)
-                # omzettingen
-                cofact_ie    = int(round(cofact_ml * IE_per_ml))
-                cofact_mg    = round(cofact_ml * mg_per_ml, 1)
+                cofact_ie = int(round(cofact_ml * IE_per_ml))
+                cofact_mg  = round(cofact_ml * mg_per_ml, 1)
                 cofact_flesjes = math.ceil((cofact_ie / IE_per_flesje))
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
@@ -134,12 +133,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
                 omniplasma_zak = int(omniplasma / 200)
                 omniplasma_used = True
 
- # Fibrinogeen-berekening
     if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
         delta = 12 - fibtem_a5
-        # gram
         fibrinogeen_g = round((6.25 * delta * gewicht) / 1000)
-        # ml
         fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
 
     advies = {}
@@ -161,7 +157,7 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     return advies
 
 # =======================
-# State management
+# State defenities
 # =======================
 if "show_advies" not in st.session_state:
     st.session_state.show_advies = False
@@ -169,13 +165,9 @@ if "advies_resultaat" not in st.session_state:
     st.session_state.advies_resultaat = {}
 if "liveviewer_opened" not in st.session_state:
     st.session_state.liveviewer_opened = False
-
+    
 # =======================
-# Disclaimer
-# =======================
-
-# =======================
-# HEADER
+# Koptekst
 # =======================
 col_left, col_right = st.columns([6, 1])
 with col_left:
@@ -195,7 +187,7 @@ if not st.session_state.liveviewer_opened:
         st.session_state.liveviewer_opened = True
 
 # =======================
-# Pagina 1 – Invoer
+# Pagina 1 – Invoerscherm
 # =======================
 
 elif not st.session_state.show_advies:
@@ -228,7 +220,6 @@ elif not st.session_state.show_advies:
                 st.warning("\n".join(["⚠️ Waarschuwing:"] + waarschuwingen))
                 st.stop()
         
-            # Sla inputs tijdelijk op
         st.session_state.extem_ct = extem_ct
         st.session_state.fibtem_a5 = fibtem_a5
         st.session_state.extem_a5 = extem_a5
@@ -243,17 +234,15 @@ elif not st.session_state.show_advies:
         st.session_state.show_advies = True
 
 # =======================
-# Pagina 2 – Advies
+# Pagina 2 – Adviesscherm
 # =======================
 else:
     adviezen = st.session_state.advies_resultaat
     overzicht_items = [f"{prod}: {val}" for prod, val in adviezen.items()]
     
-    # Grote, opvallende overzichtszin
-    # Bulletpoint-stijl overzicht met grotere tekst
+   
     bullet_items = "".join([f"<li>{prod}: {val}</li>" for prod, val in adviezen.items()])
-    st.markdown(
-        f"""
+    st.markdown(f"""
         <div class='advies-overzicht'>
             <span style="font-size: 35px;">Advies:</span>
             <ul style="margin-top: 12px; font-size: 35px; font-weight: 600; color: #002B45;">
@@ -315,7 +304,7 @@ else:
         st.session_state.show_advies = False
 
 # =======================
-# Footer
+# Voet tekst
 # =======================
 st.markdown("---")
 st.markdown("<p style='text-align: center; font-size: 0.85em;'>Gemaakt door studenten Klinische Technologie: Anne de Zeeuw, Cedric Kalhorn, Fleur de Groot & Roos Ritsma</p>", unsafe_allow_html=True)
