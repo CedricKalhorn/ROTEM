@@ -237,8 +237,8 @@ else:
     st.markdown(
         f"""
         <div class='advies-overzicht'>
-            <span style="font-size: 22px;">Advies:</span>
-            <ul style="margin-top: 12px; font-size: 20px; font-weight: 600; color: #002B45;">
+            <span style="font-size: 29px;">Advies:</span>
+            <ul style="margin-top: 12px; font-size: 29px; font-weight: 600; color: #002B45;">
                 {bullet_items}
             </ul>
         </div>
