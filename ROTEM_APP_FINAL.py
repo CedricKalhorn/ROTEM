@@ -94,10 +94,10 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, we
     cofact_dosis = 0.0
     omniplasma_used = False
     # cofact verpakking
-    IE_PER_VIAL     = 500     # 500 IE per flacon
-    VIAL_SOLVENT_ML = 20      # ml na reconstitutie
-    IE_PER_ML       = IE_PER_VIAL / VIAL_SOLVENT_ML  # 25 IE/ml
-    MG_PER_ML       = 10      # 10 mg per ml (volgens 1400 IE = 10 mg → 1 ml = 1400 IE = 10 mg)
+    IE_per_flesje     = 500     # 500 IE per flacon
+    Flesje_ml = 20      # ml na reconstitutie
+    IE_per_ml       = IE_per_flesje/ Flesje_ml  # 25 IE/ml
+    mg_per_ml       = 10      # 10 mg per ml (volgens 1400 IE = 10 mg → 1 ml = 1400 IE = 10 mg)
 
     cofact_ml     = 0.0
     cofact_ie     = 0
