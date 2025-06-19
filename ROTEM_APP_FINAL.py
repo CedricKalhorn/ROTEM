@@ -150,6 +150,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
 
     if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
         delta = 12 - fibtem_a5
+        if levensbedreigend == "Ja":
+            fibrinogeen_g = math.ceil((6.25 * delta * gewicht) / 1000)
+        else:
         fibrinogeen_g = round((6.25 * delta * gewicht) / 1000)
         fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
 
