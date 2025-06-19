@@ -119,9 +119,9 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
                     cofact_flesjes_10ml = eenheden_10ml % 2
                 else: 
                     # niet-levensbedreigend: pak eerst zoveel mogelijk 20 ml, rest 10 ml
-                    cofact_flesjes_20ml = int(cofact_ml // 20)
-                    rest_ml = cofact_ml - cofact_flesjes_20ml * 20
-                    cofact_flesjes_10ml = 1 if rest_ml > 0 else 0
+                    cofact_ml_req = round(cofact_ml / 10) * 10
+                    cofact_flesjes_20ml = cofact_ml_req // 20
+                    cofact_flesjes_10ml = (cofact_ml_req % 20) // 10
             
                 # 3) Actualiseer werkelijke dosis
                 totaal_flesjes = cofact_flesjes_20ml + cofact_flesjes_10ml
