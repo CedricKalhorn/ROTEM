@@ -104,31 +104,30 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
     cofact_ie = 0
     cofact_mg = 0.0
     cofact_flesjes = 0
-    cofact_ml_req = 0.0
-    cofact_flesjes_20ml = 0
-    cofact_flesjes_10ml = 0
-    totaal_flesjes = 0
     
     if extem_ct is not None and fibtem_a5 is not None:
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 12.5
             if keuze == "Cofact":
-                cofact_ie = int(round(cofact_ml_req * IE_per_ml))
-                cofact_mg = round(cofact_ml_req * mg_per_ml, 1)
-        
+                cofact_ml = round(0.4 * gewicht, 1)
+                cofact_ie = int(round(cofact_ml * IE_per_ml))
                 if levensbedreigend == "Ja":
-                    cofact_ml_req = math.ceil(0.4 * gewicht, 1)
-                    eenheden_10ml = math.ceil(cofact_ml_req / 10)
+                    # 1) Bepaal hoeveel 10 ml-eenheden je minimaal nodig hebt, altijd naar boven
+                    eenheden_10ml = math.ceil(cofact_ml / 10)
+                    # 2) Zet die om in 20 ml-flacons + 10 ml-flacons
                     cofact_flesjes_20ml = eenheden_10ml // 2
                     cofact_flesjes_10ml = eenheden_10ml % 2
-                else:
-                    cofact_ml_req = round(0.4 * gewicht, 1)
-                    cofact_flesjes_20ml = int(cofact_ml_req // 20)
-                    rest_ml = cofact_ml_req - cofact_flesjes_20ml * 20
+                else: 
+                    # niet-levensbedreigend: pak eerst zoveel mogelijk 20 ml, rest 10 ml
+                    cofact_flesjes_20ml = int(cofact_ml // 20)
+                    rest_ml = cofact_ml - cofact_flesjes_20ml * 20
                     cofact_flesjes_10ml = 1 if rest_ml > 0 else 0
-        
+            
+                # 3) Actualiseer werkelijke dosis
                 totaal_flesjes = cofact_flesjes_20ml + cofact_flesjes_10ml
-                
+                cofact_ml = cofact_flesjes_20ml * 20 + cofact_flesjes_10ml * 10
+                cofact_ie = int(round(cofact_ml * IE_per_ml))
+                cofact_mg = round(cofact_ml * mg_per_ml, 1)
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
@@ -151,20 +150,19 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
 
     if fibtem_a5 is not None and extem_a5 is not None and fibtem_a5 < 9 and extem_a5 < 35:
         delta = 12 - fibtem_a5
-        if levensbedreigend == "Ja":
-            fibrinogeen_g = math.ceil((6.25 * delta * gewicht) / 1000)
-            fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
-
-        else:
-            fibrinogeen_g = round ((6.25 * delta * gewicht) / 1000)
-            fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
+        fibrinogeen_g = round((6.25 * delta * gewicht) / 1000)
+        fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
 
     advies = {}
     if keuze == "Cofact":
         if totaal_flesjes > 0:
-            advies["Cofact"] = (f"{cofact_flesjes_20ml} x flesje van 20 ml, {cofact_flesjes_10ml} × flesje van 10 ml ({cofact_ml_req} ml)")
+            advies["Cofact"] = (
+                f"{totaal_flesjes} flesje{'s' if totaal_flesjes>1 else ''} "
+                f"({cofact_ml} ml = {cofact_ie} IE = {cofact_mg} mg) → "
+                f"{cofact_flesjes_20ml}×20 ml, {cofact_flesjes_10ml}×10 ml"
+            )
         else:
-            advies["Cofact"] = "Geen toediening vereist"
+                advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_gebruikt else "Geen toediening vereist"
         
