@@ -112,22 +112,20 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
                 cofact_ml = round(0.4 * gewicht, 1)
                 cofact_ie = int(round(cofact_ml * IE_per_ml))
                 if levensbedreigend == "Ja":
-                    # 1) Bepaal hoeveel 10 ml-eenheden je minimaal nodig hebt, altijd naar boven
                     eenheden_10ml = math.ceil(cofact_ml / 10)
-                    # 2) Zet die om in 20 ml-flacons + 10 ml-flacons
                     cofact_flesjes_20ml = eenheden_10ml // 2
                     cofact_flesjes_10ml = eenheden_10ml % 2
                 else: 
-                    # niet-levensbedreigend: pak eerst zoveel mogelijk 20 ml, rest 10 ml
-                    cofact_ml_req = round(cofact_ml / 10) * 10
+                    cofact_ml_req = int((cofact_ml + 5) // 10) * 10
                     cofact_flesjes_20ml = cofact_ml_req // 20
                     cofact_flesjes_10ml = (cofact_ml_req % 20) // 10
             
-                # 3) Actualiseer werkelijke dosis
                 totaal_flesjes = cofact_flesjes_20ml + cofact_flesjes_10ml
                 cofact_ml = cofact_flesjes_20ml * 20 + cofact_flesjes_10ml * 10
                 cofact_ie = int(round(cofact_ml * IE_per_ml))
                 cofact_mg = round(cofact_ml * mg_per_ml, 1)
+
+            
             elif keuze == "Omniplasma":
                 if levensbedreigend == "Ja":
                     omniplasma = int((dosis + 199) // 200) * 200
