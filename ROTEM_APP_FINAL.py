@@ -113,13 +113,10 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 12.5
             if keuze == "Cofact":
-                # 1) bewaar de *gevraagde* dosering
                 cofact_ml_req = round(0.4 * gewicht, 1)
-                # 2) bereken IE en mg op basis van de gevraagde dosering
                 cofact_ie = int(round(cofact_ml_req * IE_per_ml))
                 cofact_mg = round(cofact_ml_req * mg_per_ml, 1)
         
-                # 3) flesjes splitsen op *gevraagde* ml, zonder cofact_ml te overschrijven
                 if levensbedreigend == "Ja":
                     eenheden_10ml = math.ceil(cofact_ml_req / 10)
                     cofact_flesjes_20ml = eenheden_10ml // 2
@@ -220,7 +217,7 @@ elif not st.session_state.advies:
     product_keuze_fib = st.radio("Maake een keuze:", ["Fibrinogeen dosis", "Fibrinogeen concentraat"], horizontal=True)
 
     st.markdown("Vul hieronder de patiëntgegevens in:")
-    gewicht_kg = st.number_input("Gewicht (kg)", min_value=1.0, max_value=3000.0, value=None, step=0.1, format="%.1f")
+    gewicht_kg = st.number_input("Gewicht (kg)", min_value=1.00, max_value=3000.00, value=None, step=0.01, format="%.1f")
     fibtem_a5 = st.number_input("FIBTEM A5 (mm)", min_value=0, max_value=500, value=None)
     extem_ct = st.number_input("EXTEM CT (seconden)", min_value=0, max_value=1000, value=None)
     extem_a5 = st.number_input("EXTEM A5 (mm)", min_value=0, max_value=1000, value=None)
