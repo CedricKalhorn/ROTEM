@@ -113,15 +113,16 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
         if extem_ct > 80 and fibtem_a5 > 9:
             dosis = gewicht * 12.5
             if keuze == "Cofact":
-                cofact_ml_req = round(0.4 * gewicht, 1)
                 cofact_ie = int(round(cofact_ml_req * IE_per_ml))
                 cofact_mg = round(cofact_ml_req * mg_per_ml, 1)
         
                 if levensbedreigend == "Ja":
+                    cofact_ml_req = math.ceil(0.4 * gewicht, 1)
                     eenheden_10ml = math.ceil(cofact_ml_req / 10)
                     cofact_flesjes_20ml = eenheden_10ml // 2
                     cofact_flesjes_10ml = eenheden_10ml % 2
                 else:
+                    cofact_ml_req = round(0.4 * gewicht, 1)
                     cofact_flesjes_20ml = int(cofact_ml_req // 20)
                     rest_ml = cofact_ml_req - cofact_flesjes_20ml * 20
                     cofact_flesjes_10ml = 1 if rest_ml > 0 else 0
