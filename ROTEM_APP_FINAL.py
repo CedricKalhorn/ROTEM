@@ -153,15 +153,15 @@ def stap_2_na_ROTEM_geleide_stollingscorrectie(extem_ct, fibtem_a5, extem_a5, ge
         fibrinogeen_ml = round(delta * (3.8 / 12) * gewicht)
 
     advies = {}
-        if keuze == "Cofact":
-            if totaal_flesjes > 0:
-                advies["Cofact"] = (
-                    f"{totaal_flesjes} flesje{'s' if totaal_flesjes>1 else ''} "
-                    f"({cofact_ml_req} ml = {cofact_ie} IE = {cofact_mg} mg) → "
-                    f"{cofact_flesjes_20ml}×20 ml, {cofact_flesjes_10ml}×10 ml"
-                )
-            else:
-                advies["Cofact"] = "Geen toediening vereist"
+    if keuze == "Cofact":
+        if totaal_flesjes > 0:
+            advies["Cofact"] = (
+                f"{totaal_flesjes} flesje{'s' if totaal_flesjes>1 else ''} "
+                f"({cofact_ml_req} ml = {cofact_ie} IE = {cofact_mg} mg) → "
+                f"{cofact_flesjes_20ml}×20 ml, {cofact_flesjes_10ml}×10 ml"
+            )
+        else:
+            advies["Cofact"] = "Geen toediening vereist"
     elif keuze == "Omniplasma":
         advies["Omniplasma"] = f"{omniplasma_zak} zakken ({omniplasma} ml)" if omniplasma_gebruikt else "Geen toediening vereist"
         
